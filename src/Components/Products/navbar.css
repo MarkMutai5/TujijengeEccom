@@ -1,0 +1,15 @@
+.navbar{
+    height: fit-content;
+    width: 100%;
+    background-color: rgb(171, 245, 245);
+    display: flex;
+    justify-content: space-between;
+    box-shadow: 0 2px 4px 0 rgba(0,0,0,.2);
+}
+.navitems{
+    list-style-type: none;
+    float: left;
+    display: flex;
+    font-size: 1.5rem;
+    margin: 1rem;
+}

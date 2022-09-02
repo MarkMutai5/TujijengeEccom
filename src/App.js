@@ -1,24 +1,21 @@
-import logo from './logo.svg';
-import './App.css';
+
+import Products from "./Components/Products/Products";
 
 function App() {
+
+  const products = [
+    {id: 1, name: 'Cement', description: 'Simba cement', price: 'KES600', img: 'https://savannahcement.com/images/product10.png'},
+    {id: 2, name: 'Cement', description: 'Savannah cement', price: 'KES600', img: 'helmet.png'},
+    {id: 3, name: 'Cement', description: 'Blue triangle cement', price: 'KES600', img: 'helmet.png'}
+  ] 
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+        
+        <Products products = {products}/>
+       
+        
+    </>
   );
 }
 
