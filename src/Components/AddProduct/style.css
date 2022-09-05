@@ -1,0 +1,15 @@
+.form{
+    border: 1px solid;
+    width: 60rem;
+    padding: 1rem;
+    margin-top: 4rem;
+    margin-left: 22rem;
+    
+}
+input{
+    font-size: medium;
+    font-weight: bold;
+    width: 50rem;
+    padding: 1rem;
+    margin: 0.5rem;
+}

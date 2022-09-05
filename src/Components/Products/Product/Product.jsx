@@ -9,11 +9,18 @@ function Product({product}) {
     <>
     
      <div className="container" >
-        {product.img}
-        <Typography variant='h4'> {product.name}</Typography>
-       <Typography variant='h5'> {product.description}</Typography>
-       <Typography variant='h5' gutterBottom> {product.price}</Typography>
-        <Button variant = 'outlined' color="success" startIcon =  {<AddShoppingCartOutlined />}>Add To Cart</Button>
+        <div className="media">
+          <img src = '/assets/helmet.png' alt = ' ' width= '240px'  />
+        </div>
+       <div className="content">
+          <Typography variant='h4'> {product.name}</Typography>
+          <Typography variant='h5' gutterBottom> {product.price}</Typography>
+       </div>
+       <div className="description">
+          <Typography variant='h5'> {product.description}</Typography>
+       </div>
+
+        <Button variant = 'contained' color="success" startIcon =  {<AddShoppingCartOutlined />} className = 'cart'>Add To Cart</Button>
      
     </div>
     </>    

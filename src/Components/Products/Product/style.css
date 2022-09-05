@@ -10,3 +10,19 @@
     box-shadow: 0 5px 10px 0 rgba(0,0,0,.2); /*was 2 and 4*/
    
 }
+.media{
+    min-width: 300px;
+    overflow: hidden;
+    padding-bottom: 0.5rem;    
+}
+.content{
+    display: flex;
+    justify-content: space-between;
+    padding-bottom: 0.5rem;
+}
+.description{
+    padding-bottom: 0.5rem;
+}
+.cart{
+    width: 290px;
+}
