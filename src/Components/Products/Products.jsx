@@ -1,10 +1,15 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import { Typography, IconButton,  Badge, Avatar, Grid } from '@material-ui/core'
 import {AddShoppingCartOutlined} from '@mui/icons-material'
 import './navbar.css'
 import Product from './Product/Product'
+import {ProductsContext} from '../../global/ProductsContext'
 
-function Products({products}) {
+
+function Products() {
+  const {products} = useContext(ProductsContext)
+  console.log(products)
+
 
   return (
    <>
@@ -30,9 +35,10 @@ function Products({products}) {
             </ul>
             
         </div>
+        
         <Grid container justifyContent = 'center' > {/*spacing = {2}*/}
           {products.map((product) => (
-            <Grid item key={product.id} xs = {12} sm = {6} md = {4} lg={3}>
+            <Grid item key={product.ProductId} xs = {12} sm = {6} md = {4} lg={3}> 
               <Product product = {product}/>
             </Grid>
             
