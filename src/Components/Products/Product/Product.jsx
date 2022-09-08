@@ -1,4 +1,4 @@
-import { CardMedia, Typography, Card, IconButton, Button } from '@material-ui/core'
+import {  Typography, Button } from '@material-ui/core'
 import { AddShoppingCartOutlined } from '@mui/icons-material'
 import React from 'react'
 import './style.css'

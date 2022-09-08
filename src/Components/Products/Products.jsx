@@ -36,7 +36,9 @@ function Products() {
             
         </div>
         
+        {products.length !== 0 && <h1>Products</h1>}
         <Grid container justifyContent = 'center' > {/*spacing = {2}*/}
+        {products.length === 0 && <h3>No items to be displayed</h3>}
           {products.map((product) => (
             <Grid item key={product.ProductId} xs = {12} sm = {6} md = {4} lg={3}> 
               <Product product = {product}/>
