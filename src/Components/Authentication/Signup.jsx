@@ -2,6 +2,7 @@ import React from 'react'
 import { useState } from 'react'
 import './signup.css'
 import {auth, database} from '../config/firebaseConfig'
+import { Link } from 'react-router-dom'
 
 function Signup() {
 
@@ -57,7 +58,8 @@ function Signup() {
                 <button type='submit' onClick={() => handleSignup}>Sign up</button>
                 <br />
 
-                <p className='prompt'>Already have an account? Login</p>
+                <p className='prompt'>Already have an account?  
+                <Link to = "/login" >Login Here</Link></p>
 
                 {error && <span className='errormsg'>{error}</span>}
             </form>
