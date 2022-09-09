@@ -18,7 +18,7 @@ function Main() {
         let selectedFile = e.target.files[0]
         if (selectedFile && types.includes(selectedFile.type)) {
             setProductImg(selectedFile)
-            setError(' ')
+            setError('')
         }
         else{
             setProductImg(null)

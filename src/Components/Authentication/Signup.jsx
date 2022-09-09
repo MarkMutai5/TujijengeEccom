@@ -2,9 +2,11 @@ import React from 'react'
 import { useState } from 'react'
 import './signup.css'
 import {auth, database} from '../config/firebaseConfig'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 
 function Signup() {
+
+    let navigate = useNavigate()
 
     const [name, setName] = useState(' ')
     const [email, setEmail] = useState(' ')
@@ -23,10 +25,11 @@ function Signup() {
                 Password: password
             })
             .then(() => {
-                setName(' ')
-                setEmail(' ')
-                setPassword(' ')
-                setError(' ')
+                setName('')
+                setEmail('')
+                setPassword('')
+                setError('')
+                navigate('/login') //check documentation
             }).catch(err => setError(err.message))
         }).catch(err => setError(err.message))
     }
@@ -45,7 +48,7 @@ function Signup() {
 
                 <label htmlFor='email'>Email:</label>
                 <br />
-                <input type='email' placeholder='xyz@email.com' required
+                <input type='email' placeholder='xyz@domain.com' required
                 onChange={(e) => setEmail(e.target.value) } value = {email}/>
                 <br />
 

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "./Components/AddProduct/Main";
 import Login from "./Components/Authentication/Login";
 import Signup from "./Components/Authentication/Signup";
+import Errorpage from "./Components/Errorpage/Errorpage";
 import Products from "./Components/Products/Products";
 import { ProductsContextProvider } from "./global/ProductsContext";
 
@@ -14,12 +15,16 @@ function App() {
   return (
     <>
         <ProductsContextProvider>
+
           <BrowserRouter>
           <Routes>
-            <Route path="/" element = { <Products /> } />
-            <Route path="/addproducts" element = {<Main /> } />
+
+            <Route exact path="/" element = { <Products /> } />
+            <Route path="/addproducts" element = { <Main /> } />
             <Route path="/signup" element = { <Signup /> } />
             <Route path="/login" element = { <Login /> } />
+            <Route path = " * " element = { <Errorpage />} />
+            
           </Routes>
           </BrowserRouter>
          
