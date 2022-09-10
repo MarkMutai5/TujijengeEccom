@@ -5,13 +5,14 @@ import { CartContext } from '../../global/CartContext';
 
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
+import DeleteIcon from '@mui/icons-material/Delete';
 
 function Cart() {
 
   const {shoppingCart, dispatch, totalPrice, totalQty} = useContext( CartContext )
   //const data = useContext(CartContext)
   //console.log(data);
-  //console.log(shoppingCart);
+  console.log(shoppingCart);
 
   return (
     <>
@@ -23,7 +24,7 @@ function Cart() {
         </>
        }
 
-       {shoppingCart && shoppingCart.map(cart => {
+       {shoppingCart && shoppingCart.map(cart => (
 
         <div className = 'cartcard' key={cart.ProductId} >
 
@@ -51,8 +52,33 @@ function Cart() {
             <RemoveIcon />
           </div>
 
+          <div className='cart-price'>
+              Ksh {cart.TotalProductPrice}
+          </div>
+
+          <button className='delete-btn' onClick={() => dispatch({ type: 'DELETE', id: cart.ProductID, cart })}>
+          <DeleteIcon/>
+          </button>
+          
+
         </div>
-       })}
+       ))
+       }
+        {shoppingCart.length > 0 && <div className='cart-summary'>
+              <div className='cart-summary-heading'>
+                  Cart-Summary
+              </div>
+              <div className='cart-summary-price'>
+                  <span>Total Price</span>
+                  <span>{totalPrice}</span>
+              </div>
+              <div className='cart-summary-price'>
+                  <span>Total Qty</span>
+                  <span>{totalQty}</span>
+              </div>
+              
+          </div>
+          }
       </div>
 
     </>

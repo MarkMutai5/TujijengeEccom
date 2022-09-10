@@ -4,14 +4,13 @@ import {AddShoppingCartOutlined} from '@mui/icons-material'
 import './navbar.css'
 import Product from './Product/Product'
 import {ProductsContext} from '../../global/ProductsContext'
-//import { CartContext } from '../../global/CartContext'
 
 
 function Products() {
 
   const {products} = useContext(ProductsContext)
   //console.log(products)
-
+     
 
   return (
    <>

@@ -1,7 +1,6 @@
-{/*Commented out incase productscontext doesnt work 
-...was planning on moving the entire thing to products component
+//Commented out incase productscontext doesnt work ...was planning on moving the entire thing to products component
 
-
+/*
 import React, { useState, useEffect } from 'react'
 import { collection, onSnapshot } from 'firebase/firestore'
 import {database} from '../Components/config/firebaseConfig'
@@ -34,5 +33,4 @@ function FirebaseExtraction() {
 }
 
 export default FirebaseExtraction
-
-*/}
+*/

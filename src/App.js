@@ -7,7 +7,6 @@ import Cart from "./Components/Cart/Cart";
 import Errorpage from "./Components/Errorpage/Errorpage";
 import Products from "./Components/Products/Products";
 import { CartContextProvider } from "./global/CartContext";
-import FirebaseExtraction from "./global/FirebaseExtraction";
 import { ProductsContextProvider } from "./global/ProductsContext";
 
 function App() {
@@ -28,7 +27,6 @@ function App() {
               <Route path="/signup" element = { <Signup /> } />
               <Route path="/login" element = { <Login /> } />
               <Route path = "/cart" element = { <Cart />} />
-              <Route path = "/snapshot" element = { <FirebaseExtraction /> } />
               <Route path = " * " element = { <Errorpage />} />
               
             </Routes>

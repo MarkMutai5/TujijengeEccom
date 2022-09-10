@@ -13,27 +13,32 @@ export class ProductsContextProvider extends React.Component{
     }
 
 
+    
     componentDidMount(){
-        database.collection('Products')
-                .get( )
-                .then(snapshot => {
-                    const products = []
-                    snapshot.forEach(doc => {
-                        const data = doc.data()
-                        //const Id = doc.id
-                        products.push( data)
+
+        const prevProducts = this.state.products
+        database.collection('Products').onSnapshot(snapshot => {
+            let changes = snapshot.docChanges()
+            changes.forEach(change => {
+                if(change.type === 'added'){
+                    prevProducts.push({
+                        ProductId: change.doc.id,
+                        ProductName: change.doc.data().ProductName,
+                        ProductPrice: change.doc.data().ProductPrice,
+                        ProductUrl: change.doc.data().ProductUrl,
+                        Description: change.doc.data().Description,
+
                     })
-
-                    this.setState({
-                        products: products
+                }
+                this.setState({
+                    products: prevProducts
                 })
-
-                //.catch(error => console.log(error))
-                })
-            
-        
-        
+            })
+        })
     }
+
+
+    
 
     render(){
         return(
@@ -43,3 +48,4 @@ export class ProductsContextProvider extends React.Component{
         )
     }
 }
+
