@@ -3,8 +3,11 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import Main from "./Components/AddProduct/Main";
 import Login from "./Components/Authentication/Login";
 import Signup from "./Components/Authentication/Signup";
+import Cart from "./Components/Cart/Cart";
 import Errorpage from "./Components/Errorpage/Errorpage";
 import Products from "./Components/Products/Products";
+import { CartContextProvider } from "./global/CartContext";
+import FirebaseExtraction from "./global/FirebaseExtraction";
 import { ProductsContextProvider } from "./global/ProductsContext";
 
 function App() {
@@ -15,19 +18,23 @@ function App() {
   return (
     <>
         <ProductsContextProvider>
-
+          <CartContextProvider>
+        
           <BrowserRouter>
-          <Routes>
+            <Routes>
 
-            <Route exact path="/" element = { <Products /> } />
-            <Route path="/addproducts" element = { <Main /> } />
-            <Route path="/signup" element = { <Signup /> } />
-            <Route path="/login" element = { <Login /> } />
-            <Route path = " * " element = { <Errorpage />} />
-            
-          </Routes>
+              <Route exact path="/" element = { <Products /> } />
+              <Route path="/addproducts" element = { <Main /> } />
+              <Route path="/signup" element = { <Signup /> } />
+              <Route path="/login" element = { <Login /> } />
+              <Route path = "/cart" element = { <Cart />} />
+              <Route path = "/snapshot" element = { <FirebaseExtraction /> } />
+              <Route path = " * " element = { <Errorpage />} />
+              
+            </Routes>
           </BrowserRouter>
          
+          </CartContextProvider>
         </ProductsContextProvider>
         
         

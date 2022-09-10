@@ -20,7 +20,8 @@ export class ProductsContextProvider extends React.Component{
                     const products = []
                     snapshot.forEach(doc => {
                         const data = doc.data()
-                        products.push(data)
+                        //const Id = doc.id
+                        products.push( data)
                     })
 
                     this.setState({
@@ -30,6 +31,7 @@ export class ProductsContextProvider extends React.Component{
                 //.catch(error => console.log(error))
                 })
             
+        
         
     }
 

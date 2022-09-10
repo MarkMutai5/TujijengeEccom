@@ -1,9 +1,10 @@
-{/* Commented out incase productscontext doesnt work 
+{/*Commented out incase productscontext doesnt work 
 ...was planning on moving the entire thing to products component
 
 
 import React, { useState, useEffect } from 'react'
-import {database} from './Components/config/firebaseConfig'
+import { collection, onSnapshot } from 'firebase/firestore'
+import {database} from '../Components/config/firebaseConfig'
 
 
 function FirebaseExtraction() {
@@ -16,19 +17,13 @@ function FirebaseExtraction() {
       getProducts()
     }, [  ])
 
-    const getProducts = () => {
-      database.collection('Products')
-      .get()
-      .then((snapshot) => {
-        snapshot.docs.forEach((doc) => {
-          setProducts((prev) =>{
-            return[...prev, doc.data()]
-          })
-        })
-      })
+    const getProducts = () => 
+      onSnapshot( collection(database, "Products"), (snapshot) => {
+        setProducts(snapshot.docs.map(doc => ({...doc.data(), Id: doc.id  })));
+      } )
       
-      console.log(products)
-    }
+       console.log(products) 
+    
     
 
   return (
@@ -39,4 +34,5 @@ function FirebaseExtraction() {
 }
 
 export default FirebaseExtraction
+
 */}
