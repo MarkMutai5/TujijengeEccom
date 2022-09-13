@@ -1,18 +1,19 @@
-import React, { useContext } from 'react'
+import React, { useContext,useState,useEffect } from 'react'
+import { useNavigate } from 'react-router-dom'
 import { Typography, IconButton,  Badge, Avatar, Grid } from '@material-ui/core'
 import {AddShoppingCartOutlined} from '@mui/icons-material'
 import './navbar.css'
 import Product from './Product/Product'
 import {ProductsContext} from '../../global/ProductsContext'
 import { database, auth } from '../config/firebaseConfig'
-import { useState } from 'react'
-import { useEffect } from 'react'
+
 
 function Products() {
 
   const {products} = useContext(ProductsContext)
   //console.log(products)
   
+  let navigate = useNavigate()
 
   function GetUserUid(){
     const [uid, setUid] = useState(null)
@@ -53,7 +54,7 @@ function Products() {
                 <li>
                     <IconButton aria-label="cart">
                         <Badge badgeContent={4} color="secondary">
-                            <AddShoppingCartOutlined />
+                            <AddShoppingCartOutlined onClick = {()=> navigate('/cart')} />
                         </Badge>
                     </IconButton>
                     
