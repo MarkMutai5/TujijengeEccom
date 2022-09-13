@@ -1,15 +1,21 @@
-import {  Typography, Button } from '@material-ui/core'
+import {  Typography } from '@material-ui/core'
 import { AddShoppingCartOutlined } from '@mui/icons-material'
 import React, { useContext } from 'react'
 import { CartContext } from '../../../../src/global/CartContext'
 import './style.css'
+import {database } from '../../config/firebaseConfig'
 
-function Product({product}) {
+function Product({product, addToCart}) {
 
   //const data = useContext(CartContext)
   //console.log(data);
 
-  const {dispatch} = useContext(CartContext)
+  //const {dispatch} = useContext(CartContext)
+  //() => dispatch({type: 'ADD_TO_CART', id: product.ProductId, product })
+
+  const handleAddtoCart = () => {
+    addToCart(product)
+  }
 
   return (
     
@@ -27,8 +33,8 @@ function Product({product}) {
           <Typography variant='h5'> {product.Description}</Typography>
        </div>
 
-        <Button variant = 'outlined' startIcon =  {<AddShoppingCartOutlined />} className = 'cart' 
-        onClick={() => dispatch({type: 'ADD_TO_CART', id: product.ProductId, product })}>Add To Cart</Button>
+        <button  className = 'cart' 
+        onClick={handleAddtoCart}>Add To Cart</button>
      
     </div>
     </>    
