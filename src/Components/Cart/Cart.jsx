@@ -1,5 +1,5 @@
 //import { ShoppingCart } from '@mui/icons-material';
-import React, { useContext, useState, useEffect } from 'react'
+import React, { useState, useEffect } from 'react'
 
 import AddIcon from '@mui/icons-material/Add';
 import RemoveIcon from '@mui/icons-material/Remove';
@@ -26,6 +26,8 @@ function Cart() {
   }, [])
   
   //console.log(cartProducts);
+ 
+
 
   return (
     <>
@@ -36,7 +38,7 @@ function Cart() {
         <Grid container justifyContent = 'center' >
           {cartProducts.map((cartProduct) => (
              <Grid item key={cartProduct.ID} xs = {12} sm = {6} md = {4} lg={3}> 
-                <IndividualProduct  cartProduct = {cartProduct}/>
+                <IndividualProduct  cartProduct = {cartProduct} />
               </Grid>
           ))}
         </Grid>
