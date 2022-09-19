@@ -1,6 +1,6 @@
 import React, { useContext,useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Typography, IconButton,  Badge, Avatar, Grid } from '@material-ui/core'
+import { Typography, IconButton,  Badge, Grid } from '@material-ui/core'
 import {AddShoppingCartOutlined} from '@mui/icons-material'
 import './navbar.css'
 import Product from './Product/Product'
@@ -45,23 +45,23 @@ function Products() {
    <>
       <div className='navbar'> 
             
-            <Typography style = {{fontSize: '1.5rem', padding: '0.5rem', cursor: 'pointer'}}>
-                <img src=" engineer.png" alt = ' ' height= '50rem' margin = '0.3rem'/>
-                Tujijenge
-            </Typography>
+      <Typography variant = 'h6' style = {{padding: '0.5rem', cursor: 'pointer', paddingTop: '1rem'}}>TUJIJENGE</Typography>
 
             <ul className='navitems'>
+              <li>
+                <Typography variant='h6' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem'}} onClick = {() => navigate('/login')}>LOGIN</Typography>
+              </li>
                 <li>
                     <IconButton aria-label="cart">
                         <Badge badgeContent={4} color="secondary">
                             <AddShoppingCartOutlined onClick = {()=> navigate('/cart')} />
                         </Badge>
                     </IconButton>
+
+                    
                     
                 </li>
-                <li>
-                    <Avatar sx={{ bgColor: '#e67773', width: 50, height: 50, cursor: 'pointer' }}>M</Avatar>
-                </li>
+                
             </ul>
             
         </div>

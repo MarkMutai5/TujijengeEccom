@@ -4,7 +4,6 @@ import Main from "./Components/AddProduct/Main";
 import Login from "./Components/Authentication/Login";
 import Signup from "./Components/Authentication/Signup";
 import Cart from "./Components/Cart/Cart";
-import Dropdown from "./Components/Dropdown/Dropdown";
 import Errorpage from "./Components/Errorpage/Errorpage";
 import Products from "./Components/Products/Products";
 import { CartContextProvider } from "./global/CartContext";
@@ -28,7 +27,6 @@ function App() {
               <Route path="/signup" element = { <Signup /> } />
               <Route path="/login" element = { <Login /> } />
               <Route path = "/cart" element = { <Cart />} />
-              <Route path = "/dropdown" element ={ <Dropdown /> }/>
               <Route path = " * " element = { <Errorpage />} />
               
             </Routes>

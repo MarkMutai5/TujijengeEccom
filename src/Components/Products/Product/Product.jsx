@@ -25,12 +25,13 @@ function Product({product, addToCart}) {
         <div className="media">
           <img src ={product.ProductUrl} alt = ' ' width= '240px'  />
         </div>
+        <hr />
        <div className="content">
-          <Typography variant='h4'> {product.ProductName}</Typography>
-          <Typography variant='h5' gutterBottom> Ksh {product.ProductPrice}</Typography>
+          <Typography variant='h6'> {product.ProductName}</Typography>
+          <Typography variant='body1' gutterBottom> Ksh {product.ProductPrice}</Typography>
        </div>
        <div className="description">
-          <Typography variant='h5'> {product.Description}</Typography>
+          <Typography variant='body1'> {product.Description}</Typography>
        </div>
 
         <button  className = 'cart' 
