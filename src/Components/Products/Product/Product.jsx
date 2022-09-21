@@ -1,9 +1,10 @@
 import {  Typography } from '@material-ui/core'
-import { AddShoppingCartOutlined } from '@mui/icons-material'
 import React, { useContext } from 'react'
-import { CartContext } from '../../../../src/global/CartContext'
 import './style.css'
+
+import { CartContext } from '../../../../src/global/CartContext'
 import {database } from '../../config/firebaseConfig'
+import { useNavigate } from 'react-router-dom'
 
 function Product({product, addToCart}) {
 
@@ -17,19 +18,30 @@ function Product({product, addToCart}) {
     addToCart(product)
   }
 
+
+  let navigate = useNavigate()
+
+  const handleProductClick = () => {
+    navigate('/extendedproduct')
+   }
+ 
+
   return (
     
     <>
     
      <div className="container"  >
-        <div className="media">
-          <img src ={product.ProductUrl} alt = ' ' width= '240px'  />
+
+        <div className="media" onClick={() => handleProductClick()}>
+          <img src ={product.ProductUrl} alt = ' ' height= '250px'/>
         </div>
         <hr />
+
        <div className="content">
           <Typography variant='h6'> {product.ProductName}</Typography>
           <Typography variant='body1' gutterBottom> Ksh {product.ProductPrice}</Typography>
        </div>
+
        <div className="description">
           <Typography variant='body1'> {product.Description}</Typography>
        </div>

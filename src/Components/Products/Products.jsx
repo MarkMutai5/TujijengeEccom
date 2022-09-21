@@ -1,6 +1,6 @@
 import React, { useContext,useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Typography, IconButton,  Badge, Grid } from '@material-ui/core'
+import { Typography, IconButton,  Badge, Grid, Button } from '@material-ui/core'
 import {AddShoppingCartOutlined} from '@mui/icons-material'
 import './navbar.css'
 import Product from './Product/Product'
@@ -48,26 +48,24 @@ function Products() {
       <Typography variant = 'h6' style = {{padding: '0.5rem', cursor: 'pointer', paddingTop: '1rem'}}>TUJIJENGE</Typography>
 
             <ul className='navitems'>
+
               <li>
-                <Typography variant='h6' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem'}} onClick = {() => navigate('/login')}>LOGIN</Typography>
+                <Button variant='outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem'}} onClick = {() => navigate('/login')}>LOGIN</Button>
               </li>
+
                 <li>
                     <IconButton aria-label="cart">
                         <Badge badgeContent={4} color="secondary">
                             <AddShoppingCartOutlined onClick = {()=> navigate('/cart')} />
                         </Badge>
-                    </IconButton>
-
-                    
-                    
+                    </IconButton>    
                 </li>
                 
-            </ul>
-            
-        </div>
-        
-        {products.length !== 0 && <h1>Products</h1>}
+            </ul>    
+        </div>   
+
         <Grid container justifyContent = 'center' > {/*spacing = {2}*/}
+        
         {products.length === 0 && <h3>No items to be displayed</h3>}
           {products.map((product) => (
             
