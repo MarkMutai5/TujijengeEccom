@@ -7,6 +7,8 @@ import Product from './Product/Product'
 import {ProductsContext} from '../../global/ProductsContext'
 import { database, auth } from '../config/firebaseConfig'
 
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 function Products() {
 
@@ -35,8 +37,8 @@ function Products() {
 
   const uid = GetUserUid()
 
-  let Stuff;
 
+  let Stuff;
   const addToCart = (product) => {
     console.log(product);
     Stuff = product
@@ -49,6 +51,13 @@ function Products() {
 
   const handleSignout = () => {
     auth.signOut()
+    .then(() => {
+      toast('User logged out')
+    }).catch((err) => {
+      toast(err.message)
+    })
+
+      
   }
 
   return (
@@ -80,6 +89,8 @@ function Products() {
                 
             </ul>    
         </div>   
+
+        <ToastContainer />
 
         <Grid container justifyContent = 'center' > {/*spacing = {2}*/}
         
