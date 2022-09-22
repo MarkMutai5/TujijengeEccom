@@ -28,3 +28,6 @@
 .cart{
     width: 290px;
 }
+button{
+    cursor: pointer;
+}

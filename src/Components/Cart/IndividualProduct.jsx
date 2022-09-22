@@ -1,8 +1,8 @@
 import { Typography } from '@material-ui/core'
-import { TypeSpecimenOutlined } from '@mui/icons-material'
 import React from 'react'
 import { database, auth } from '../config/firebaseConfig'
 import './Individual.css'
+import { IconButton } from '@mui/material'
 
 
 function IndividualProduct({cartProduct}) {
@@ -59,12 +59,11 @@ function IndividualProduct({cartProduct}) {
 
             <Typography  variant='h6'>{cartProduct.ProductName}</Typography>
             <br />
-            <Typography variant='body1'>Quantity</Typography>
 
             <div className="actions">
-              <button onClick = {handleDecrease}>Minus</button>
+              <IconButton onClick = {handleDecrease}>-</IconButton>
               <div>{cartProduct.qty}</div>
-              <button onClick = {handleIncrease}>Plus</button>
+              <IconButton onClick = {handleIncrease}>+</IconButton>
             </div>
             
             <div>{cartProduct.TotalProductPrice}</div>

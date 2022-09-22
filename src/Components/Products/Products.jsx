@@ -98,7 +98,7 @@ function Products() {
           {products.map((product) => (
             
             <Grid item key={product.ProductId} xs = {12} sm = {6} md = {4} lg={3}> 
-              <Product product = {product} addToCart = {addToCart}/>
+              <Product product = {product} addToCart = {addToCart} />
             </Grid>
             
             

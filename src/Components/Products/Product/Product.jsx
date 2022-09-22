@@ -1,5 +1,5 @@
 import {  Typography } from '@material-ui/core'
-import React, { useContext } from 'react'
+import React, { useContext, useState } from 'react'
 import './style.css'
 
 import { CartContext } from '../../../../src/global/CartContext'
@@ -14,8 +14,13 @@ function Product({product, addToCart}) {
   //const {dispatch} = useContext(CartContext)
   //() => dispatch({type: 'ADD_TO_CART', id: product.ProductId, product })
 
+  const [btnColor, setBtnColor] = useState()
+  const [btnText, setBtnText] = useState('Add to Cart')
+
   const handleAddtoCart = () => {
     addToCart(product)
+    setBtnColor('#25BE25')
+    setBtnText('Added to Cart')
   }
 
 
@@ -46,8 +51,8 @@ function Product({product, addToCart}) {
           <Typography variant='body1'> {product.Description}</Typography>
        </div>
 
-        <button  className = 'cart' 
-        onClick={handleAddtoCart}>Add To Cart</button>
+        <button  className = 'cart' style = {{backgroundColor : btnColor}}
+        onClick={handleAddtoCart}>{btnText}</button>
      
     </div>
     </>    
