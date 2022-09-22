@@ -12,6 +12,8 @@ function Products() {
 
   const {products} = useContext(ProductsContext)
   //console.log(products)
+
+  const [currentUser, setCurrentUser] = useState(null)
   
   let navigate = useNavigate()
 
@@ -21,6 +23,10 @@ function Products() {
       auth.onAuthStateChanged(user =>{
         if(user){
           setUid(user.uid)
+          setCurrentUser(user)
+        }
+        else{
+          setCurrentUser(null)
         }
       })    
     }, [])
@@ -41,6 +47,10 @@ function Products() {
     })
   }
 
+  const handleSignout = () => {
+    auth.signOut()
+  }
+
   return (
    <>
       <div className='navbar'> 
@@ -49,9 +59,16 @@ function Products() {
 
             <ul className='navitems'>
 
-              <li>
+              {currentUser ? (
+                <li>
+                <Button variant='outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem'}} onClick = {() => handleSignout()}>LOGOUT</Button>
+              </li>
+              ) : (
+                <li>
                 <Button variant='outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem'}} onClick = {() => navigate('/login')}>LOGIN</Button>
               </li>
+              )}
+              
 
                 <li>
                     <IconButton aria-label="cart">
