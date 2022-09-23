@@ -6,6 +6,7 @@ import Login from "./Components/Authentication/Login";
 import Signup from "./Components/Authentication/Signup";
 import Cart from "./Components/Cart/Cart";
 import Errorpage from "./Components/Errorpage/Errorpage";
+import Landingpage from  "./Components/LandingPage/Landingpage"
 import ExtendedProduct from "./Components/Products/Product/ExtendedProduct";
 import Products from "./Components/Products/Products";
 import { CartContextProvider } from "./global/CartContext";
@@ -30,6 +31,7 @@ function App() {
               <Route path="/login" element = { <Login /> } />
               <Route path = "/cart" element = { <Cart />} />
               <Route path = "/extendedproduct" element = { <ExtendedProduct /> } />
+              <Route path = "/landingpage" element = { <Landingpage />}/>
               <Route path = "/admin" element = { <Admin /> } />
               <Route path = " * " element = { <Errorpage />} />
               

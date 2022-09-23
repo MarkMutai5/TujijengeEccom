@@ -1,0 +1,110 @@
+*{
+    scroll-behavior: smooth;
+}
+.landingcontainer{
+    background-image: url('/public/2206_w048_n005_141b_p1_141.jpg'); /*width 100%*/
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 35rem;
+    padding: 20px;
+    margin: 10px 0px;
+    position: "absolute";
+    width: 100%;
+    
+}
+.container p{
+    font-size: 20px;
+}
+.container h1{
+    padding-top: 5rem;
+}
+.details h1{
+    text-align: center;
+}
+.benefits{
+    width: 100%;
+    display: flex;    
+    justify-content: space-evenly;
+    background-color: antiquewhite;
+    padding: 20px 5px;
+    margin: 20px 0px;
+}
+.benefitone{
+    border: 1px solid;
+    width: fit-content;
+    display: inline-block;
+    height: 25rem;
+    width: 20rem;
+    padding: 10px;
+    margin: 5px 1px;
+    /*background-image: url('/public/helmet.png');*/
+}
+.benefittwo{
+    display: inline-block;
+    height: 25rem;
+    width: 20rem;
+    vertical-align: top;
+    border: solid 1px;
+    padding: 10px;
+    margin: 5px 1px;
+    /*background-image: url('/public/hook.png');*/
+}
+.benefitthree{
+    display: inline-block;
+    height: 25rem;
+    width: 20rem;
+    vertical-align: top;
+    border: solid 1px;
+    padding: 10px ;
+    margin: 5px 1px;
+    /*background-image: url('/public/excavator.png');*/
+}
+.closing{
+    margin:  5px 10px;
+}
+.benefits img{
+    height: 50%;
+    width: 50%;
+}
+.landingfooter{
+    background: grey;
+    width: 100%;
+    padding: 50px 60px;
+    position: absolute;
+}
+.landingfooter p{
+    color: black;
+    font-size: 16px;
+}
+.landingfooter h1{
+    color: black;
+    text-align: center;
+    padding-top: -60px;
+}
+.footercontainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.column{
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-left: 60px;
+}
+.row{
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(185px, 1fr));
+    grid-gap: 20px;
+    @media (max-width: 1000px) {
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr))
+    }
+}
+.heading{
+    font-size: 24px;
+    color: black;
+    margin-bottom: 40px;
+    font-weight: bold;
+}
