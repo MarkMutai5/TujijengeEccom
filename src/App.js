@@ -25,13 +25,13 @@ function App() {
           <BrowserRouter>
             <Routes>
 
-              <Route exact path="/" element = { <Products /> } />
+              <Route exact path = "/" element = { <Landingpage />}/>
+              <Route path="/home" element = { <Products /> } />
               <Route path="/addproducts" element = { <Main /> } />
               <Route path="/signup" element = { <Signup /> } />
               <Route path="/login" element = { <Login /> } />
               <Route path = "/cart" element = { <Cart />} />
               <Route path = "/extendedproduct" element = { <ExtendedProduct /> } />
-              <Route path = "/landingpage" element = { <Landingpage />}/>
               <Route path = "/admin" element = { <Admin /> } />
               <Route path = " * " element = { <Errorpage />} />
               

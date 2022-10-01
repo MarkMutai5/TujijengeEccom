@@ -15,7 +15,7 @@ function Landingpage() {
             
               <h1>TUJIJENGE</h1>
               <p>We help you access building materials with ease</p>
-              <button variant = 'contained' color="secondary" onClick={()=> navigate('/')}>Shop Now</button>
+              <button variant = 'contained' color="secondary" onClick={()=> navigate('/home')}>Shop Now</button>
 
         </div>
 
