@@ -7,6 +7,7 @@ import VisibilityIcon from '@mui/icons-material/Visibility';
 import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
 import './login.css'
 import { IconButton,  TextField } from '@mui/material';
+import { Button } from '@material-ui/core';
 
 function Login() {
 
@@ -38,13 +39,14 @@ function Login() {
             
             <label htmlFor='email'>Email:</label>
             <br />
-            <input type = 'email' placeholder = 'xyz@domain.com' required
-            onChange={(e) => setEmail(e.target.value)} value = {email} />
+            <TextField sx={{ m: 1, width: '50rem' }} type = 'email' placeholder = 'xyz@domain.com' required
+            onChange={(e) => setEmail(e.target.value)} value = {email} >
+            </TextField>
             <br />
 
             <label htmlFor='password'>Password:</label>
             <br />
-            <TextField type = {passwordType ? "text" : "password"} placeholder = 'Enter password' required
+            <TextField sx={{ m: 1, width: '50rem' }} type = {passwordType ? "text" : "password"} placeholder = 'Enter password' required
             onChange={(e) => setPassword(e.target.value)} value = {password}
 
             InputProps = {{
@@ -60,10 +62,10 @@ function Login() {
             ></TextField>
             
             <br />
-            <button type = 'submit' onClick={handleLogin}>LOGIN</button>
+            <Button variant='outlined'  size="large" type = 'submit' onClick={handleLogin} >LOGIN</Button>
 
             <p>Don't have an account ?
-                <Link to = '/signup'>Create</Link>
+                <Link to = '/signup'>Join Us</Link>
             </p>
             {error && <span className='errormsg'>{error}</span>}
             

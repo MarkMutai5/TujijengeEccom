@@ -3,15 +3,21 @@ import { useState } from 'react'
 import './signup.css'
 import {auth, database} from '../config/firebaseConfig'
 import { Link, useNavigate } from 'react-router-dom'
+import { IconButton,  TextField } from '@mui/material';
+import InputAdornment from "@material-ui/core/InputAdornment";
+import VisibilityIcon from '@mui/icons-material/Visibility';
+import VisibilityOffIcon from '@mui/icons-material/VisibilityOff';
+import { Button } from '@material-ui/core'
 
 function Signup() {
 
     let navigate = useNavigate()
 
-    const [name, setName] = useState(' ')
-    const [email, setEmail] = useState(' ')
-    const [password, setPassword] = useState(' ')
-    const [error, setError] = useState(' ')
+    const [name, setName] = useState('')
+    const [email, setEmail] = useState('')
+    const [password, setPassword] = useState('')
+    const [error, setError] = useState('')
+    const [passwordType, setPasswordType] = useState(false)
 
 
     const handleSignup = (e) => {
@@ -42,23 +48,37 @@ function Signup() {
 
                 <label htmlFor='Name'>Name:</label>
                 <br />
-                <input type='text' placeholder='Name' required 
+                <TextField sx={{ m: 1, width: '50rem' }}  type='text' placeholder='Name' required 
                 onChange={(e) => setName(e.target.value) } value = {name}/>
                 <br />
 
                 <label htmlFor='email'>Email:</label>
                 <br />
-                <input type='email' placeholder='xyz@domain.com' required
+                <TextField sx={{ m: 1, width: '50rem' }}  type='email' placeholder='xyz@domain.com' required
                 onChange={(e) => setEmail(e.target.value) } value = {email}/>
                 <br />
 
                 <label htmlFor='password'>Password:</label>
                 <br />
-                <input type='password' placeholder='Enter password' required
-                onChange={(e) => setPassword(e.target.value) } value = {password}/>
+                <TextField sx={{ m: 1, width: '50rem' }} type = {passwordType ? "text" : "password"} placeholder='Enter password' required
+                onChange={(e) => setPassword(e.target.value) } value = {password}
+                
+                InputProps = {{
+                    endAdornment :
+                        <InputAdornment position='end'>
+                            
+                                { !passwordType ? 
+                                    <IconButton onClick={() => setPasswordType(true)}> <VisibilityIcon></VisibilityIcon></IconButton>
+                                     : 
+                                     <IconButton onClick={() => setPasswordType(false)}> <VisibilityOffIcon></VisibilityOffIcon></IconButton>  }
+                           
+                        </InputAdornment>,
+                    
+                }}
+                />
                 <br />
 
-                <button type='submit' onClick={() => handleSignup}>Sign up</button>
+                <Button variant = 'outlined'  size="large" type='submit' onClick={() => handleSignup}>Sign up</Button>
                 <br />
 
                 <p className='prompt'>Already have an account?  
