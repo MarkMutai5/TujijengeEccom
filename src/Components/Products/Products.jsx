@@ -19,6 +19,7 @@ function Products() {
   
   let navigate = useNavigate()
 
+  //getting the user id
   function GetUserUid(){
     const [uid, setUid] = useState(null)
     useEffect(()=>{
@@ -38,15 +39,22 @@ function Products() {
   const uid = GetUserUid()
 
 
+  //adding to cart
   let Stuff;
   const addToCart = (product) => {
-    console.log(product);
-    Stuff = product
-    Stuff['qty'] = 1
-    Stuff['TotalProductPrice'] = Stuff.qty * Stuff.ProductPrice
-    database.collection('Cart' + uid).doc(product.ID).set(Stuff).then(() => {
-      console.log('Added to cart');
-    })
+    if (uid!==null){
+      console.log(product);
+      Stuff = product
+      Stuff['qty'] = 1
+      Stuff['TotalProductPrice'] = Stuff.qty * Stuff.ProductPrice
+      database.collection('Cart' + uid).doc(product.ID).set(Stuff).then(() => {
+        console.log('Added to cart');
+      })
+    }
+    else{
+      navigate('/login')
+    }
+    
   }
 
   const handleSignout = () => {
@@ -55,10 +63,22 @@ function Products() {
       toast('User logged out')
     }).catch((err) => {
       toast(err.message)
-    })
-
-      
+    })  
   }
+
+  //getting the length of cart items
+  const [totalProducts, setTotalProducts] = useState(0)
+  useEffect(() => {
+    auth.onAuthStateChanged(user => {
+      if(user){
+        database.collection('Cart' + user.uid).onSnapshot(snapshot => {
+          const quantity = snapshot.docs.length
+          setTotalProducts(quantity)
+        })
+      }
+    })
+   
+  },[])
 
   return (
    <>
@@ -81,7 +101,7 @@ function Products() {
 
                 <li>
                     <IconButton aria-label="cart">
-                        <Badge badgeContent={4} color="secondary">
+                        <Badge badgeContent={totalProducts} color="secondary">
                             <AddShoppingCartOutlined onClick = {()=> navigate('/cart')} />
                         </Badge>
                     </IconButton>    

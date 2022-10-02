@@ -3,18 +3,15 @@ import React, { useState, useEffect } from 'react'
 import {auth, database} from '../config/firebaseConfig'
 import IndividualProduct from './IndividualProduct';
 import {Grid} from '@material-ui/core'
-import {ClipLoader} from 'react-spinners/ClipLoader'
 
 
 function Cart() {
 
   const [cartProducts, setCartProducts] = useState([])
-  const [isLoading, setLoading] = useState(false)
 
   useEffect(() => {
     auth.onAuthStateChanged(user =>{
       database.collection('Cart' + user.uid).onSnapshot(snapshot => {
-        setLoading(true) 
         const newCartProduct = snapshot.docs.map((doc) => ({
           ID: doc.id,
           ...doc.data(),  
@@ -22,18 +19,13 @@ function Cart() {
         setCartProducts(newCartProduct)
       })       
     })    
-    setLoading(false)  
   }, [])
  
   
-  //console.log(cartProducts);
+  console.log(cartProducts);
 
   return (
-    <>
-    {isLoading ? (
-       <div>Loading...</div>
-
-    ) : (
+    
       <>
        {cartProducts.length > 0 && (
       <div className="cartcontainer">
@@ -42,14 +34,12 @@ function Cart() {
         <Grid container justifyContent = 'center' >
           {cartProducts.map((cartProduct) => (
              <Grid item key = {cartProduct.ID} xs = {12} sm = {6} md = {4} lg={3}> 
-                <IndividualProduct  cartProduct = {cartProduct} />
+                <IndividualProduct key = {cartProduct.ID} cartProduct = {cartProduct} />
               </Grid>
           ))}
         </Grid>
         </div>
       </div>
-    )}
-      </>
     )}
   
    {cartProducts.length < 1 && (
