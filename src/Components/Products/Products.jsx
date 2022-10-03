@@ -1,14 +1,13 @@
 import React, { useContext,useState,useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
-import { Typography, IconButton,  Badge, Grid, Button } from '@material-ui/core'
-import {AddShoppingCartOutlined} from '@mui/icons-material'
-import './navbar.css'
+import { Grid } from '@material-ui/core'
 import Product from './Product/Product'
 import {ProductsContext} from '../../global/ProductsContext'
 import { database, auth } from '../config/firebaseConfig'
 
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import Navbar from '../Navbar/Navbar'
 
 function Products() {
 
@@ -16,6 +15,7 @@ function Products() {
   //console.log(products)
 
   const [currentUser, setCurrentUser] = useState(null)
+  
   
   let navigate = useNavigate()
 
@@ -29,7 +29,7 @@ function Products() {
           setCurrentUser(user)
         }
         else{
-          setCurrentUser(null)
+         setCurrentUser(null)
         }
       })    
     }, [])
@@ -57,58 +57,33 @@ function Products() {
     
   }
 
-  const handleSignout = () => {
-    auth.signOut()
-    .then(() => {
-      toast('User logged out')
-    }).catch((err) => {
-      toast(err.message)
-    })  
-  }
-
-  //getting the length of cart items
   const [totalProducts, setTotalProducts] = useState(0)
   useEffect(() => {
-    auth.onAuthStateChanged(user => {
-      if(user){
-        database.collection('Cart' + user.uid).onSnapshot(snapshot => {
-          const quantity = snapshot.docs.length
-          setTotalProducts(quantity)
-        })
-      }
-    }) 
-   
-  },[])
+  auth.onAuthStateChanged(user => {
+    if(user){
+      database.collection('Cart' + user.uid).onSnapshot(snapshot => {
+        const quantity = snapshot.docs.length
+        setTotalProducts(quantity)
+      })
+    }
+  }) 
+ 
+},[])
 
+const handleSignout = () => {
+  auth.signOut()
+  .then(() => {
+    toast('User logged out')
+  }).catch((err) => {
+    toast(err.message)
+  })  
+}
+
+  
   return (
    <>
-      <div className='navbar'> 
-            
-      <Typography variant = 'h6' style = {{padding: '0.5rem', cursor: 'pointer', paddingTop: '1rem'}}>TUJIJENGE</Typography>
-
-            <ul className='navitems'>
-
-              {currentUser ? (
-                <li>
-                <Button variant='outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem'}} onClick = {() => handleSignout()}>LOGOUT</Button>
-              </li>
-              ) : (
-                <li>
-                <Button variant='outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem'}} onClick = {() => navigate('/login')}>LOGIN</Button>
-              </li>
-              )}
-              
-
-                <li>
-                    <IconButton aria-label="cart" onClick = {()=> navigate('/cart')}> 
-                        <Badge badgeContent={totalProducts} color="secondary">
-                            <AddShoppingCartOutlined  />
-                        </Badge>
-                    </IconButton>    
-                </li>
-                
-            </ul>    
-        </div>   
+      
+        <Navbar currentUser = {currentUser} navigate = {navigate} totalProducts = {totalProducts} handleSignout = {handleSignout}/>
 
         <ToastContainer />
 

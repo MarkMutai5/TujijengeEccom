@@ -22,11 +22,12 @@ function Cart() {
   }, [])
  
   
-  console.log(cartProducts);
+  //console.log(cartProducts);
 
   return (
     
       <>
+      
        {cartProducts.length > 0 && (
       <div className="cartcontainer">
         <h1>Cart</h1>
