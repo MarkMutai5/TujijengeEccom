@@ -62,13 +62,10 @@
 .closing{
     margin:  5px 10px;
 }
-.benefits img{
-    height: 50%;
-    width: 50%;
-}
+
 .landingfooter{
     background: grey;
-    width: 100%;
+    width: 95%;
     padding: 50px 60px;
     position: absolute;
 }
@@ -80,6 +77,7 @@
     color: black;
     text-align: center;
     padding-top: -60px;
+    
 }
 .footercontainer{
     display: flex;
