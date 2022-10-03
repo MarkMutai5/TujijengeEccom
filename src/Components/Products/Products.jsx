@@ -47,7 +47,7 @@ function Products() {
       Stuff = product
       Stuff['qty'] = 1
       Stuff['TotalProductPrice'] = Stuff.qty * Stuff.ProductPrice
-      database.collection('Cart' + uid).doc(product.ProductId).set(Stuff).then(() => {
+      database.collection('Cart' + uid).doc(product.ProductId).set(Stuff).then(() => { //was product.ID
         console.log('Added to cart');
       })
     }
