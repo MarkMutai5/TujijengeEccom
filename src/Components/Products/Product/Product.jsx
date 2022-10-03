@@ -5,7 +5,7 @@ import './style.css'
 import { CartContext } from '../../../../src/global/CartContext'
 import {database } from '../../config/firebaseConfig'
 import { useNavigate } from 'react-router-dom'
-
+ 
 function Product({product, addToCart}) {
 
   //const data = useContext(CartContext)

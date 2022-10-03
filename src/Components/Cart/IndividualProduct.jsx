@@ -34,7 +34,7 @@ function IndividualProduct({cartProduct}) {
         .update(Item).then(() => {
           console.log('reduced');
         })
-      })
+      }) 
     }
   }
 

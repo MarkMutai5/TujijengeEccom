@@ -47,7 +47,7 @@ function Products() {
       Stuff = product
       Stuff['qty'] = 1
       Stuff['TotalProductPrice'] = Stuff.qty * Stuff.ProductPrice
-      database.collection('Cart' + uid).doc(product.ID).set(Stuff).then(() => {
+      database.collection('Cart' + uid).doc(product.ProductId).set(Stuff).then(() => {
         console.log('Added to cart');
       })
     }
@@ -76,7 +76,7 @@ function Products() {
           setTotalProducts(quantity)
         })
       }
-    })
+    }) 
    
   },[])
 
@@ -100,9 +100,9 @@ function Products() {
               
 
                 <li>
-                    <IconButton aria-label="cart">
+                    <IconButton aria-label="cart" onClick = {()=> navigate('/cart')}> 
                         <Badge badgeContent={totalProducts} color="secondary">
-                            <AddShoppingCartOutlined onClick = {()=> navigate('/cart')} />
+                            <AddShoppingCartOutlined  />
                         </Badge>
                     </IconButton>    
                 </li>

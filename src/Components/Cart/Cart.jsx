@@ -9,7 +9,7 @@ function Cart() {
 
   const [cartProducts, setCartProducts] = useState([])
 
-  useEffect(() => {
+  useEffect(() => { 
     auth.onAuthStateChanged(user =>{
       database.collection('Cart' + user.uid).onSnapshot(snapshot => {
         const newCartProduct = snapshot.docs.map((doc) => ({
