@@ -46,21 +46,21 @@ function Signup() {
             <h1>Sign up form</h1>
             <form className='signupform' onSubmit = {handleSignup} autoComplete = 'on'>
 
-                <label htmlFor='Name'>Name:</label>
+                
                 <br />
-                <TextField sx={{ m: 1, width: '50rem' }}  type='text' placeholder='Name' required 
+                <TextField sx={{ m: 1, width: '50rem' }}  type='text' label='Name' variant = 'outlined' required 
                 onChange={(e) => setName(e.target.value) } value = {name}/>
                 <br />
 
-                <label htmlFor='email'>Email:</label>
+                
                 <br />
-                <TextField sx={{ m: 1, width: '50rem' }}  type='email' placeholder='xyz@domain.com' required
+                <TextField sx={{ m: 1, width: '50rem' }}  type='email' label='Email' variant = 'outlined' required
                 onChange={(e) => setEmail(e.target.value) } value = {email}/>
                 <br />
 
-                <label htmlFor='password'>Password:</label>
+                
                 <br />
-                <TextField sx={{ m: 1, width: '50rem' }} type = {passwordType ? "text" : "password"} placeholder='Enter password' required
+                <TextField sx={{ m: 1, width: '50rem' }} type = {passwordType ? "text" : "password"} label='Password' required
                 onChange={(e) => setPassword(e.target.value) } value = {password}
                 
                 InputProps = {{

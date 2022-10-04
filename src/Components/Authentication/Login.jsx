@@ -37,16 +37,16 @@ function Login() {
         <h1>Login Form</h1>
         <form onSubmit={handleLogin} autoComplete = 'off'>
             
-            <label htmlFor='email'>Email:</label>
+            
             <br />
-            <TextField sx={{ m: 1, width: '50rem' }} type = 'email' placeholder = 'xyz@domain.com' required
+            <TextField sx={{ m: 1, width: '50rem' }} type = 'email' label = 'Email' variant = 'outlined' required
             onChange={(e) => setEmail(e.target.value)} value = {email} >
             </TextField>
             <br />
 
-            <label htmlFor='password'>Password:</label>
+            
             <br />
-            <TextField sx={{ m: 1, width: '50rem' }} type = {passwordType ? "text" : "password"} placeholder = 'Enter password' required
+            <TextField sx={{ m: 1, width: '50rem' }} type = {passwordType ? "text" : "password"} label = 'Password' variant = 'outlined' required
             onChange={(e) => setPassword(e.target.value)} value = {password}
 
             InputProps = {{

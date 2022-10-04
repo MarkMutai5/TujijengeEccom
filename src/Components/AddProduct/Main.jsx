@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 import './style.css'
 
 import {database, storage} from '../config/firebaseConfig'
+import { TextField } from '@mui/material'
 
 function Main() {
 
@@ -49,7 +50,7 @@ function Main() {
                     setProductDescription('')
                     setProductImg('')
                     setError('')
-                    document.getElementById('file').value = ' '
+                    document.getElementById('file').defaultValue = ''  //was .value
                 }).catch(err=> setError(err.message) )
             })
         })
@@ -57,27 +58,27 @@ function Main() {
 
   return (
     <>
-        <div className="form">
+        <div className="addproducts">
             <h2>ADD PRODUCTS</h2>
             <form autoComplete='off' onSubmit={addProduct}>
 
-                <label htmlFor='product-name'> Product Name </label>               
+                              
                 <br />
-                <input type="text" placeholder='Product name' required
+                <TextField sx={{ m: 1, width: '50rem' }} type="text" label='Product name' variant = 'outlined' required
                 onChange={(e) => setProductName(e.target.value)} value = {productName} />
                 <br />
 
 
-                <label htmlFor = 'product-price' > Price:  </label>          
+                        
                 <br />
-                <input type="number" placeholder='Price' required 
+                <TextField sx={{ m: 1, width: '50rem' }} type="number" label='Price' variant = 'outlined' required 
                 onChange={(e) => setProductPrice(e.target.value)} value = {productPrice} />
                 <br />
 
 
-                <label htmlFor='product-description' > Description: </label>
+                
                 <br />
-                <input type="text" placeholder='Product description' required 
+                <TextField sx={{ m: 1, width: '50rem' }} type="text" label='Product description' variant = 'outlined' required 
                 onChange={(e) => setProductDescription(e.target.value)} value = {productDescription} />
                <br />
 
