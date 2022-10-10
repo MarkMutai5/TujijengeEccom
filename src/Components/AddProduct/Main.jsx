@@ -1,6 +1,6 @@
 
 import React, { useState } from 'react'
-import './style.css'
+import './addproducts.css'
 
 import {database, storage} from '../config/firebaseConfig'
 import { TextField } from '@mui/material'
@@ -28,6 +28,8 @@ function Main() {
     }
 
 
+    //always change firestrore rules to true
+    
     const addProduct = (e) => {
         e.preventDefault()
         //console.log(productName, productDescription, productPrice, productImg)

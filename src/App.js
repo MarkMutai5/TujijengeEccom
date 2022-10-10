@@ -9,8 +9,10 @@ import Errorpage from "./Components/Errorpage/Errorpage";
 import Landingpage from  "./Components/LandingPage/Landingpage"
 import ExtendedProduct from "./Components/Products/Product/ExtendedProduct";
 import Products from "./Components/Products/Products";
+import User from "./Components/Users/User";
 import { CartContextProvider } from "./global/CartContext";
 import { ProductsContextProvider } from "./global/ProductsContext";
+import { UserContextProvider } from "./global/UserContext";
 
 function App() {  
 
@@ -18,7 +20,7 @@ function App() {
     <>
         <ProductsContextProvider>
           <CartContextProvider>
-        
+          <UserContextProvider>
           <BrowserRouter>
             <Routes>
 
@@ -30,11 +32,13 @@ function App() {
               <Route path = "/cart" element = { <Cart />} />
               <Route path = "/extendedproduct" element = { <ExtendedProduct /> } />
               <Route path = "/admin" element = { <Admin /> } />
+              <Route path = '/user' element = { <User />}/>
               <Route path = " * " element = { <Errorpage />} />
               
               
             </Routes>
           </BrowserRouter>
+          </UserContextProvider>
          
           </CartContextProvider>
         </ProductsContextProvider>

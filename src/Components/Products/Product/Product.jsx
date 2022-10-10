@@ -1,10 +1,11 @@
-import {  Typography } from '@material-ui/core'
+import {  Card, CardMedia, Typography } from '@material-ui/core'
 import React, { useContext, useState } from 'react'
-import './style.css'
-
-import { CartContext } from '../../../../src/global/CartContext'
-import {database } from '../../config/firebaseConfig'
 import { useNavigate } from 'react-router-dom'
+import './product.css'
+
+//import { CartContext } from '../../../../src/global/CartContext'
+//import {database } from '../../config/firebaseConfig'
+
  
 function Product({product, addToCart}) {
 
@@ -35,7 +36,7 @@ function Product({product, addToCart}) {
     
     <>
     
-     <div className="container"  >
+     <div className="productcontainer"  >
 
         <div className="media" onClick={() => handleProductClick()}>
           <img src ={product.ProductUrl} alt = ' ' height= '250px'/>
