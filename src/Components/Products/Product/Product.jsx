@@ -1,6 +1,5 @@
-import {  Card, CardMedia, Typography } from '@material-ui/core'
-import React, { useContext, useState } from 'react'
-import { useNavigate } from 'react-router-dom'
+import {  Card, CardMedia, Typography, CardContent } from '@material-ui/core'
+import React from 'react'
 import './product.css'
 
 //import { CartContext } from '../../../../src/global/CartContext'
@@ -15,47 +14,32 @@ function Product({product, addToCart}) {
   //const {dispatch} = useContext(CartContext)
   //() => dispatch({type: 'ADD_TO_CART', id: product.ProductId, product })
 
- //const [btnColor, setBtnColor] = useState()
-  //const [btnText, setBtnText] = useState('Add to Cart')
-
   const handleAddtoCart = () => {
     addToCart(product)
-    //setBtnColor('#25BE25')
-    //setBtnText('Added to Cart')
   }
-
-
-  let navigate = useNavigate()
-
-  const handleProductClick = () => {
-    navigate('/extendedproduct')
-   }
- 
 
   return (
     
     <>
     
-     <div className="productcontainer"  >
-
-        <div className="media" onClick={() => handleProductClick()}>
-          <img src ={product.ProductUrl} alt = ' ' height= '250px'/>
-        </div>
-        <hr />
-
-       <div className="content">
-          <Typography variant='h6'> {product.ProductName}</Typography>
-          <Typography variant='body1' gutterBottom> Ksh {product.ProductPrice}</Typography>
-       </div>
-
-       <div className="description">
-          <Typography variant='body1'> {product.Description}</Typography>
-       </div>
-
+    <div style = {{paddingTop: '2rem'}} />
+    <Card style={{maxWidth: '270px'}} >
+        <CardMedia image = {product.ProductUrl} title = {product.ProductName} className = 'media' style ={{margin: '0.5rem'}}/>
+        <CardContent >
+          <div className='cardcontent'>
+            <Typography gutterBottom variant ='body1'>
+              {product.ProductName}
+            </Typography> 
+            <Typography variant = 'body1'>
+              KSH{product.ProductPrice}
+            </Typography>
+          </div>
+          <Typography color = 'textSecondary' variant = 'body2'>{product.Description}</Typography>
+        </CardContent>
         <button  className = 'cart' 
-        onClick={handleAddtoCart}>Add To Cart</button> {/*style = {{backgroundColor : btnColor}}*/}
-     
-    </div>
+        onClick={handleAddtoCart}> <Typography variant = 'body2'>Add To Cart</Typography></button>
+    </Card>
+    <div style = {{paddingTop: '2rem'}} />
     </>    
    
   )

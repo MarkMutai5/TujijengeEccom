@@ -33,6 +33,8 @@ function Login() {
 
 
   return (
+    <>
+    <img src='TUJIJENGE.png' alt='' />
     <div className='login'>
         <h1>Login Form</h1>
         <form onSubmit={handleLogin} autoComplete = 'off'>
@@ -53,7 +55,9 @@ function Login() {
                 endAdornment :
                     <InputAdornment position='end'>
                         
-                            { !passwordType ? <IconButton onClick={() => setPasswordType(true)}> <VisibilityIcon></VisibilityIcon></IconButton> : <IconButton onClick={() => setPasswordType(false)}> <VisibilityOffIcon></VisibilityOffIcon></IconButton>  }
+                            { !passwordType ? <IconButton onClick={() => setPasswordType(true)}> <VisibilityIcon></VisibilityIcon></IconButton>
+                             :
+                              <IconButton onClick={() => setPasswordType(false)}> <VisibilityOffIcon></VisibilityOffIcon></IconButton>  }
                        
                     </InputAdornment>,
                 
@@ -71,6 +75,7 @@ function Login() {
             
         </form>
     </div>
+    </>
   )
 }
 

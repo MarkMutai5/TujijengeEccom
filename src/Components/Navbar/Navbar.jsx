@@ -10,7 +10,7 @@ function Navbar( {currentUser, navigate, totalProducts, handleSignout}) {
     <div className='navbar'> 
             
             <Typography variant = 'h6' style = {{padding: '0.5rem', cursor: 'pointer', paddingTop: '1rem'}} onClick = {()=> navigate('/home')}>TUJIJENGE</Typography>
-      
+          
                   <ul className='navitems'>
       
                     {currentUser ? (

@@ -1,4 +1,4 @@
-import { Typography } from '@material-ui/core'
+import { Typography, Card, CardMedia, CardContent } from '@material-ui/core'
 import React from 'react'
 import { database, auth } from '../config/firebaseConfig'
 import './Individual.css'
@@ -49,27 +49,33 @@ function IndividualProduct({cartProduct}) {
   
 
   return (
-    <div className='product'>
-        <div className="image">
-            <img src = {cartProduct.ProductUrl} alt = 'Product url' />
-        </div>
-        <br />
-        <hr />
-        <div className="content">
+    <>
+    
 
-            <Typography  variant='h6'>{cartProduct.ProductName}</Typography>
-            <br />
+    <div />
+    <Card style={{maxWidth: '280px'}} >
+        <CardMedia image = {cartProduct.ProductUrl} title = {cartProduct.ProductName} className = 'media' style ={{margin: '0.5rem'}}/>
+        <CardContent >
+          <div className='cardcontent'>
+            <Typography gutterBottom variant ='body1'>
+              {cartProduct.ProductName}
+            </Typography> 
 
             <div className="actions">
               <IconButton onClick = {handleDecrease}>-</IconButton>
               <div>{cartProduct.qty}</div>
               <IconButton onClick = {handleIncrease}>+</IconButton>
+              <Typography variant = 'body1'>
+              KSH{cartProduct.TotalProductPrice}
+            </Typography>
             </div>
-            
-            <div>{cartProduct.TotalProductPrice}</div>
-            <button onClick={handleDelete}>Delete</button>
-        </div>
-    </div>
+
+          </div>
+          <button onClick={handleDelete} className = 'btnCart'>DELETE</button>
+        </CardContent>
+    </Card>
+    <div style = {{paddingTop: '2rem'}} />
+    </>
   )
 }
 

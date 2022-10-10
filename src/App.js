@@ -1,5 +1,5 @@
 
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import {  Route, Routes } from "react-router-dom";
 import Main from "./Components/AddProduct/Main";
 import Admin from "./Components/Admin/Admin";
 import Login from "./Components/Authentication/Login";
@@ -21,7 +21,7 @@ function App() {
         <ProductsContextProvider>
           <CartContextProvider>
           <UserContextProvider>
-          <BrowserRouter>
+          
             <Routes>
 
               <Route exact path = "/" element = { <Landingpage />}/>
@@ -37,7 +37,7 @@ function App() {
               
               
             </Routes>
-          </BrowserRouter>
+          
           </UserContextProvider>
          
           </CartContextProvider>

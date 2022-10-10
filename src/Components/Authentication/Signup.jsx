@@ -42,6 +42,7 @@ function Signup() {
 
   return (
     <>
+    <img src='TUJIJENGE-light.png' alt = ''/>
         <div className="signup">
             <h1>Sign up form</h1>
             <form className='signupform' onSubmit = {handleSignup} autoComplete = 'on'>

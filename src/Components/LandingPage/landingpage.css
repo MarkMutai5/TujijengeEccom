@@ -1,6 +1,4 @@
-*{
-    scroll-behavior: smooth;
-}
+
 .landingcontainer{
     background-image: url('/public/2206_w048_n005_141b_p1_141.jpg'); /*width 100%*/
     background-size: cover;
