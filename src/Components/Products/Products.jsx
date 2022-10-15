@@ -4,21 +4,21 @@ import { Grid } from '@material-ui/core'
 import Product from './Product/Product'
 import {ProductsContext} from '../../global/ProductsContext'
 import { database, auth } from '../config/firebaseConfig'
-
-import { ToastContainer, toast } from 'react-toastify';
+import {  toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import Navbar from '../Navbar/Navbar'
 
 function Products() {
 
+  let navigate = useNavigate()
+
+  
+
   const {products} = useContext(ProductsContext)
   //console.log(products)
 
   const [currentUser, setCurrentUser] = useState(null)
-  
-  
-  let navigate = useNavigate()
-
+ 
   //getting the user id
   function GetUserUid(){
     const [uid, setUid] = useState(null)
@@ -73,7 +73,7 @@ function Products() {
 const handleSignout = () => {
   auth.signOut()
   .then(() => {
-    toast('User logged out')
+    toast.success('User logged out')
   }).catch((err) => {
     toast(err.message)
   })  
@@ -85,7 +85,7 @@ const handleSignout = () => {
       
         <Navbar currentUser = {currentUser} navigate = {navigate} totalProducts = {totalProducts} handleSignout = {handleSignout}/>
 
-        <ToastContainer />
+        
 
         <Grid container justifyContent = 'center' > {/*spacing = {2}*/}
         

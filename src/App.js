@@ -10,18 +10,15 @@ import Landingpage from  "./Components/LandingPage/Landingpage"
 import ExtendedProduct from "./Components/Products/Product/ExtendedProduct";
 import Products from "./Components/Products/Products";
 import User from "./Components/Users/User";
-import { CartContextProvider } from "./global/CartContext";
 import { ProductsContextProvider } from "./global/ProductsContext";
-import { UserContextProvider } from "./global/UserContext";
+import { ToastContainer } from 'react-toastify';
 
 function App() {  
 
   return (
     <>
         <ProductsContextProvider>
-          <CartContextProvider>
-          <UserContextProvider>
-          
+          <ToastContainer/>
             <Routes>
 
               <Route exact path = "/" element = { <Landingpage />}/>
@@ -37,10 +34,6 @@ function App() {
               
               
             </Routes>
-          
-          </UserContextProvider>
-         
-          </CartContextProvider>
         </ProductsContextProvider>
         
         

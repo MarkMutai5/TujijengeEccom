@@ -26,7 +26,7 @@ function Navbar( {currentUser, navigate, totalProducts, handleSignout}) {
       
                       <li>
                           <IconButton aria-label="cart" onClick = {()=> navigate('/cart')}> 
-                              <Badge badgeContent={totalProducts} color="secondary">
+                              <Badge badgeContent={totalProducts} color="secondary" overlap="rectangular">
                                   <AddShoppingCartOutlined  />
                               </Badge>
                           </IconButton>    

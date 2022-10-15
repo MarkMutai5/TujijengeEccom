@@ -26,7 +26,7 @@ function Landingpage() {
                 <h1>Here are some benefits of shopping with us</h1>
             </div>
         </div>
-
+{/*
         <Carousel showThumbs = {false} autoPlay = {true} interval = {2500} showArrows = {true} width = '95%'>
 
           <div>
@@ -44,7 +44,7 @@ function Landingpage() {
 
         </Carousel>
 
-       
+  */}
       </div>
     <div className='landingfooter'>
       <h1>TUJIJENGE: WE MAKE CONSTRUCTION EASIER FOR YOU</h1>
