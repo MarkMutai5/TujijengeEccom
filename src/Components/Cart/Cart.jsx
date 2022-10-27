@@ -2,8 +2,9 @@
 import React, { useState, useEffect } from 'react'
 import {auth, database} from '../config/firebaseConfig'
 import IndividualProduct from './IndividualProduct';
-import {Grid, Typography} from '@material-ui/core'
-import { Card } from '@mui/material';
+import {Box, Grid, Typography} from '@material-ui/core'
+import { useDispatch } from 'react-redux';
+import { getCartProducts } from '../../Slices/CartSlice';
 
 
 function Cart() {
@@ -21,6 +22,14 @@ function Cart() {
       })       
     })    
   }, [])
+
+  const dispatch = useDispatch()
+
+  useEffect(() => {
+    dispatch(getCartProducts())
+  }, [])
+  
+
  
 
   //getting qty of cartproducts
@@ -45,7 +54,7 @@ function Cart() {
     const reducerofprice = (accumulator, currentValue) => accumulator + currentValue
     const totalPrice = price.reduce(reducerofprice, 0)
 
-    console.log(totalPrice);
+    //console.log(totalPrice);
 
 
   return (
@@ -65,13 +74,15 @@ function Cart() {
           ))}
         </Grid>
 
-        <Card sx={{maxWidth: '200px'}}>
+            
+
+        <Box sx={{maxWidth: "200px", justifyContent: 'center'}}>
           <Typography variant = 'body1'>CART DETAILS</Typography>
           <Typography variant = 'body2'>Total no of items:</Typography>
            <Typography  variant = 'body2'> {totalqty} </Typography>
           <Typography  variant = 'body2'>Total amount:</Typography> 
           <Typography  variant = 'body2'> {totalPrice} </Typography>
-        </Card>
+        </Box>
       
         </div>
       </div>

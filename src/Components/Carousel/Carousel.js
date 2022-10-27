@@ -22,7 +22,7 @@ function CarouselComponent() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="TUJIJENGE-light.png"
+          src="construction3 images.jpeg"
         alt="Second slide"
         style={{borderRadius: "2ch"}}
         />
@@ -35,7 +35,7 @@ function CarouselComponent() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="2206_w048_n005_141b_p1_141.jpg"
+          src="istockphoto-construction.jpg"
         alt="Third slide"
         style={{borderRadius: "2ch"}}
         />

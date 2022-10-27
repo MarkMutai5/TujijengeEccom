@@ -9,7 +9,7 @@ export const userSlice = createSlice({
     reducers: {
         getUserID: (state, action) => {
             state.user = action.payload
-            console.log('lol');
+            //console.log('lol');
             console.log(state.user)
 
         },

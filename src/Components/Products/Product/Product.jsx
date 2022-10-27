@@ -2,18 +2,8 @@ import {  Card, CardMedia, Typography, CardContent } from '@material-ui/core'
 import React from 'react'
 import './product.css'
 
-//import { CartContext } from '../../../../src/global/CartContext'
-//import {database } from '../../config/firebaseConfig'
-
  
 function Product({product, addToCart}) {
-
-  //const data = useContext(CartContext)
-  //console.log(data);
-
-  //const {dispatch} = useContext(CartContext)
-  //() => dispatch({type: 'ADD_TO_CART', id: product.ProductId, product })
-
   const handleAddtoCart = () => {
     addToCart(product)
   }

@@ -12,8 +12,6 @@ function Products() {
 
   let navigate = useNavigate()
 
-  
-
   const {products} = useContext(ProductsContext)
   //console.log(products)
 
@@ -43,12 +41,12 @@ function Products() {
   let Stuff;
   const addToCart = (product) => {
     if (uid!==null){
-      console.log(product);
+      //console.log(product);
       Stuff = product
       Stuff['qty'] = 1
       Stuff['TotalProductPrice'] = Stuff.qty * Stuff.ProductPrice
       database.collection('Cart' + uid).doc(product.ProductId).set(Stuff).then(() => { //was product.ID
-        console.log('Added to cart');
+        //console.log('Added to cart');
       })
     }
     else{

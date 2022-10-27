@@ -1,7 +1,7 @@
 
 .landingcontainer{
     background-image: url('/public/2206_w048_n005_141b_p1_141.jpg'); /*width 100%*/
-    background-size: cover;
+    background-size: 100%;
     background-repeat: no-repeat;
     height: 35rem;
     padding: 20px;
@@ -62,7 +62,7 @@
 }
 
 .landingfooter{
-    background: grey;
+    background: #d3e3e1;
     width: 100%;
     padding: 50px 60px;
     position: absolute;
