@@ -1,32 +1,62 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import {AddShoppingCartOutlined} from '@mui/icons-material'
-import SearchIcon from '@mui/icons-material/Search';
-import InputAdornment from "@material-ui/core/InputAdornment";
-import { Typography, IconButton,  Badge, Button, TextField } from '@material-ui/core'
+import { Typography, IconButton,  Badge, Button } from '@material-ui/core'
 import './navbar.css'
+import { auth, database } from '../config/firebaseConfig';
+import toast from 'react-hot-toast';
+import { useNavigate } from 'react-router-dom';
 
-function Navbar( {currentUser, navigate, totalProducts, handleSignout}) {  
+function Navbar({uid}) {  
+
+  let navigate = useNavigate()
+
+  const [currentUser, setCurrentUser] = useState(null)
+ 
+  //getting the user id
+  
+    useEffect(()=>{
+      auth.onAuthStateChanged(user =>{
+        if(user){
+          setCurrentUser(user)
+        }
+        else{
+         setCurrentUser(null)
+        }
+      })    
+    }, [])
+  
+
+  const [totalProducts, setTotalProducts] = useState(0)
+  useEffect(() => {
+  auth.onAuthStateChanged(user => {
+    if(user){
+      database.collection('Cart' + user.uid).onSnapshot(snapshot => {
+        const quantity = snapshot.docs.length
+        setTotalProducts(quantity)
+      })
+    }
+  }) 
+ 
+},[])
+
+
+  const handleSignout = () => {
+    toast.promise( auth.signOut(),
+    {
+      loading: 'Logging out...',
+      success: 'User logged out',
+      error: err => err.message,
+    })
+  }
 
   return (
+
     <>
     <div className='navbar'> 
             
             <Typography variant = 'h6' style = {{padding: '0.5rem', cursor: 'pointer', paddingTop: '1rem'}} onClick = {()=> navigate('/home')}>TUJIJENGE</Typography>
           
                   <ul className='navitems'>
-                    
-                    {/* {<TextField 
-                    style = {{height: '3rem'}}
-                      InputProps = {{
-                        startAdornment :
-                            <InputAdornment position='start'>
-                              <SearchIcon />
-                            </InputAdornment>,
-                      }}
-                      variant = 'outlined'
-                      
-                    />} */}
-                    
 
                     {currentUser ? (
                       <li>

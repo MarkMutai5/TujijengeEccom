@@ -11,18 +11,36 @@ import ExtendedProduct from "./Components/Products/Product/ExtendedProduct";
 import Products from "./Components/Products/Products";
 import User from "./Components/Users/User";
 import { ProductsContextProvider } from "./global/ProductsContext";
-import { ToastContainer } from 'react-toastify';
+import { Toaster } from "react-hot-toast";
+import Navbar from "./Components/Navbar/Navbar";
+import { useEffect, useState } from "react";
+import { auth } from "./Components/config/firebaseConfig";
 
 function App() {  
+
+  function GetUserUid(){
+    const [uid, setUid] = useState(null)
+    useEffect(()=>{
+      auth.onAuthStateChanged(user =>{
+        if(user){
+          setUid(user.uid)
+        }
+      })    
+    }, [])
+    return uid
+  }
+
+  const uid = GetUserUid()
 
   return (
     <>
         <ProductsContextProvider>
-          <ToastContainer/>
+          <Toaster/>
+          <Navbar uid = {uid}/>
             <Routes>
 
               <Route exact path = "/" element = { <Landingpage />}/>
-              <Route path="/home" element = { <Products /> } />
+              <Route path="/home" element = { <Products uid = {uid}/> } />
               <Route path="/addproducts" element = { <Main /> } />
               <Route path="/signup" element = { <Signup /> } />
               <Route path="/login" element = { <Login /> } />

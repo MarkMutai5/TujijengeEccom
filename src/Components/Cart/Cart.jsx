@@ -5,6 +5,7 @@ import IndividualProduct from './IndividualProduct';
 import {Box, Grid, Typography} from '@material-ui/core'
 import { useDispatch } from 'react-redux';
 import { getCartProducts } from '../../Slices/CartSlice';
+import { List } from '@mui/material';
 
 
 function Cart() {
@@ -23,15 +24,12 @@ function Cart() {
     })    
   }, [])
 
-  const dispatch = useDispatch()
+  // const dispatch = useDispatch()
 
-  useEffect(() => {
-    dispatch(getCartProducts())
-  }, [])
+  // useEffect(() => {
+  //   dispatch(getCartProducts())
+  // }, [])
   
-
- 
-
   //getting qty of cartproducts
     const qty = cartProducts.map(cartproduct => {
       return cartproduct.qty
@@ -60,19 +58,22 @@ function Cart() {
   return (
     
       <>
-      
        {cartProducts.length > 0 && (
       <div className="cartcontainer">
         <h1>Cart</h1>
         <div className="products">
 
-        <Grid container justifyContent = 'center' >
+        {/* <Grid container justifyContent = 'center' > */}
           {cartProducts.map((cartProduct) => (
-             <Grid item key = {cartProduct.ID} xs = {12} sm = {6} md = {4} lg={3}> 
+            //  <Grid item key = {cartProduct.ID} xs = {12} sm = {6} md = {4} lg={3}> 
+            
+            <List  sx={{ width: '100%', maxWidth: 360, bgcolor: 'background.paper' }} > 
                 <IndividualProduct key = {cartProduct.ID} cartProduct = {cartProduct} />
-              </Grid>
+              </List> 
+              
+              // </Grid>
           ))}
-        </Grid>
+        {/* </Grid> */}
 
             
 

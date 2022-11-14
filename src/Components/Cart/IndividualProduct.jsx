@@ -2,7 +2,7 @@ import { Typography, Card, CardMedia, CardContent } from '@material-ui/core'
 import React from 'react'
 import { database, auth } from '../config/firebaseConfig'
 import './Individual.css'
-import { IconButton } from '@mui/material'
+import { Avatar, Divider, IconButton, ListItem, ListItemAvatar, ListItemText } from '@mui/material'
 
 
 function IndividualProduct({cartProduct}) {
@@ -51,9 +51,29 @@ function IndividualProduct({cartProduct}) {
   return (
     <>
     
-
+    
     <div />
-    <Card style={{maxWidth: '280px'}} >
+    
+    <ListItem alignItems="flex-start">
+
+      <ListItemAvatar>
+        <Avatar alt="" src = {cartProduct.ProductUrl}/>
+      </ListItemAvatar>
+      <ListItemText 
+        primary = {cartProduct.ProductName}>
+      </ListItemText>
+      <ListItemText 
+        primary = {cartProduct.TotalProductPrice}>
+      </ListItemText>
+      <IconButton sx = {{paddingTop: '0px'}} onClick = {handleDecrease}>-</IconButton>
+      <ListItemText 
+        primary = {cartProduct.qty}>
+      </ListItemText>
+      <IconButton  sx = {{paddingTop: '0px', marginLeft: '-55px'}} onClick = {handleIncrease}>+</IconButton>
+
+    </ListItem >
+    <Divider  variant="inset" component="li"/>
+    {/* <Card style={{maxWidth: '280px'}} >
         <CardMedia image = {cartProduct.ProductUrl} title = {cartProduct.ProductName} className = 'media' style ={{margin: '0.5rem'}}/>
         <CardContent >
           <div className='cardcontent'>
@@ -73,7 +93,7 @@ function IndividualProduct({cartProduct}) {
           </div>
           <button onClick={handleDelete} className = 'btnCart'>DELETE</button>
         </CardContent>
-    </Card>
+    </Card> */}
     <div style = {{paddingTop: '2rem'}} />
     </>
   )
