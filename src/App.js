@@ -10,7 +10,6 @@ import Landingpage from  "./Components/LandingPage/Landingpage"
 import ExtendedProduct from "./Components/Products/Product/ExtendedProduct";
 import Products from "./Components/Products/Products";
 import User from "./Components/Users/User";
-import { ProductsContextProvider } from "./global/ProductsContext";
 import { Toaster } from "react-hot-toast";
 import Navbar from "./Components/Navbar/Navbar";
 import { useEffect, useState } from "react";
@@ -34,7 +33,7 @@ function App() {
 
   return (
     <>
-        <ProductsContextProvider>
+        
           <Toaster/>
           <Navbar uid = {uid}/>
             <Routes>
@@ -48,13 +47,8 @@ function App() {
               <Route path = "/extendedproduct" element = { <ExtendedProduct /> } />
               <Route path = "/admin" element = { <Admin /> } />
               <Route path = '/user' element = { <User />}/>
-              <Route path = " * " element = { <Errorpage />} />
-              
-              
+              <Route path = "*" element = { <Errorpage />} /> 
             </Routes>
-        </ProductsContextProvider>
-        
-        
     </>
   );
 }

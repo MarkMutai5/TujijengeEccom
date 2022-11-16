@@ -129,6 +129,14 @@ export default function PersistentDrawerLeft() {
                 <ListItemText primary='My Account' />
               </ListItemButton>
             </ListItem>
+            <ListItem disablePadding>
+              <ListItemButton>
+                <ListItemIcon>
+                  <PersonIcon />
+                </ListItemIcon>
+                <ListItemText primary='Add Products' />
+              </ListItemButton>
+            </ListItem>
 
             <ListItem disablePadding>
               <ListItemButton>

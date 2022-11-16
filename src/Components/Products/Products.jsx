@@ -5,13 +5,32 @@ import Product from './Product/Product'
 import {ProductsContext} from '../../global/ProductsContext'
 import { database, auth } from '../config/firebaseConfig'
 import 'react-toastify/dist/ReactToastify.css';
+import { collection, onSnapshot } from 'firebase/firestore'
+import { useEffect } from 'react'
+import { useState } from 'react'
+import Spinner from '../Spinner/Spinner'
 
 function Products({uid}) {
 
   let navigate = useNavigate()
 
-  const {products} = useContext(ProductsContext)
-  //console.log(products)
+  // const {products} = useContext(ProductsContext)
+
+  const [products, setProducts] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    //https://www.youtube.com/watch?v=TkRjjq9J0tA
+    getProducts()
+  }, [  ])
+
+  const getProducts = () => 
+    onSnapshot( collection(database, "Products"), (snapshot) => {
+      setProducts(snapshot.docs.map(doc => ({...doc.data(), ProductId: doc.id  })))
+      setLoading(false)
+    }) 
+    
+     //console.log(products)
 
   //adding to cart
   let Stuff;
@@ -33,19 +52,15 @@ function Products({uid}) {
   
   return (
    <>
-      
-
+      {loading && ( <Spinner /> )}
         <Grid container justifyContent = 'center' > {/*spacing = {2}*/}
         
-        {products.length === 0 && <h5>No items to be displayed</h5>}
           {products.map((product) => (
-            
             <Grid item key={product.ProductId} xs = {12} sm = {6} md = {4} lg={3}> 
               <Product product = {product} addToCart = {addToCart} />
             </Grid>
-            
-            
           ))}
+          
         </Grid>
         
     

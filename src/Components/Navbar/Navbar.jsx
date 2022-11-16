@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import {AddShoppingCartOutlined} from '@mui/icons-material'
-import { Typography, IconButton,  Badge, Button } from '@material-ui/core'
+import { Typography, IconButton,  Badge, Button, Box } from '@material-ui/core'
 import './navbar.css'
 import { auth, database } from '../config/firebaseConfig';
 import toast from 'react-hot-toast';
@@ -41,7 +41,7 @@ function Navbar({uid}) {
 
 
   const handleSignout = () => {
-    toast.promise( auth.signOut(),
+    toast.promise( auth.signOut().then(() => setTotalProducts(0)),
     {
       loading: 'Logging out...',
       success: 'User logged out',
@@ -52,7 +52,13 @@ function Navbar({uid}) {
   return (
 
     <>
-    <div className='navbar'> 
+    <Box sx={{   height: '4rem',
+      width: '100%',
+      backgroundColor: '#fafafa',
+      display: 'flex',
+      justifyContent: 'space-between',
+      boxShadow: '0 1px 2px 0 black'
+  }}> 
             
             <Typography variant = 'h6' style = {{padding: '0.5rem', cursor: 'pointer', paddingTop: '1rem'}} onClick = {()=> navigate('/home')}>TUJIJENGE</Typography>
           
@@ -78,7 +84,7 @@ function Navbar({uid}) {
                       </li>
                       
                   </ul>    
-              </div>   
+              </Box>   
     </>
   )
 }

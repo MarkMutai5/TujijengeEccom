@@ -2,6 +2,7 @@ import React from 'react'
 import './landingpage.css'
 import {useNavigate } from 'react-router-dom'
 import CarouselComponent from '../Carousel/Carousel';
+import { Button } from '@material-ui/core';
 
 function Landingpage() {
 
@@ -16,7 +17,7 @@ function Landingpage() {
             
               <h1>TUJIJENGE</h1>
               <p>We help you access building materials with ease</p>
-              <button onClick={()=> navigate('/home')}>Shop Now</button>
+              <Button variant='outlined' onClick={()=> navigate('/home')}>Shop Now</Button>
 
         </div>
 
