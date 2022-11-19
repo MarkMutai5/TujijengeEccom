@@ -41,7 +41,10 @@ function Navbar({uid}) {
 
 
   const handleSignout = () => {
-    toast.promise( auth.signOut().then(() => setTotalProducts(0)),
+    toast.promise( auth.signOut().then(() => {
+      setTotalProducts(0)
+      navigate('/home')
+    }),
     {
       loading: 'Logging out...',
       success: 'User logged out',

@@ -3,8 +3,6 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -17,7 +15,7 @@ import { useFormik } from 'formik';
 import * as Yup from "yup";
 import toast from 'react-hot-toast';
 import { auth } from '../config/firebaseConfig';
-import Navbar from '../Navbar/Navbar';
+import { useEffect } from 'react';
 
 
 const theme = createTheme();
@@ -26,6 +24,17 @@ export default function Login() {
 
   let navigate = useNavigate()
 
+  // useEffect(() => {
+  //   auth.onAuthStateChanged(user => {
+  //     if(user){
+  //       navigate('/home')
+  //       toast.error('User is already logged in')
+  //     }
+  //   })
+  
+  // }, [])
+
+ 
   const formik = useFormik({
     initialValues: {
       email: "",

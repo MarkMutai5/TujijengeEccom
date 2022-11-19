@@ -4,16 +4,15 @@ import {auth, database} from '../config/firebaseConfig'
 import {Box, Grid, IconButton, Paper, TableBody, TableCell, Typography} from '@material-ui/core'
 import { useDispatch } from 'react-redux';
 import { getCartProducts } from '../../Slices/CartSlice';
-import {  Table, TableContainer, TableHead, TableRow } from '@mui/material';
+import {  Button, Table, TableContainer, TableHead, TableRow } from '@mui/material';
 import Spinner from '../Spinner/Spinner';
 import DeleteIcon from '@mui/icons-material/Delete';
-import {blue} from '@mui/material/colors';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
-
-const color = blue[600]
 
 function Cart() {
+
+  let navigate = useNavigate()
 
   const [cartProducts, setCartProducts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -80,18 +79,7 @@ function Cart() {
       })
   })
 }
-  //getting qty of cartproducts
-    const qty = cartProducts.map(cartproduct => {
-      return cartproduct.qty
-    })
-
-    //console.log(qty);
-
-    //reducing the qty to a single value
-    const reducerofQty = (accumulator, currentValue) => accumulator + currentValue
-    const totalqty = qty.reduce(reducerofQty, 0)
-    //console.log(totalqty);
-
+  
 
     //getting price of cart products
     const price = cartProducts.map(cartproduct => {
@@ -104,16 +92,15 @@ function Cart() {
 
     //console.log(totalPrice);
 
-
   return (
     
       <>
       { loading && ( <Spinner />)}
       { cartProducts.length > 0 ? (
         <>
-        <TableContainer component = {Paper} style = {{marginTop: '1rem'}}>
-        <Table sx = {{minWidth: 650 }} aria-label="simple table">
-          <TableHead >
+        <TableContainer component = {Paper} style = {{marginTop: '1rem', width: '100%'}}>
+        <Table sx = {{minWidth: 450 }} aria-label="simple table">
+          <TableHead sx= {{backgroundColor: 'lightblue'}}>
             <TableRow>
               <TableCell>Image</TableCell>
               <TableCell>Name</TableCell>
@@ -144,17 +131,19 @@ function Cart() {
               </TableCell>
             </TableRow>
           ))}
+          <TableRow sx= {{backgroundColor: 'lightblue'}}>
+            <TableCell  colspan = {6} style = {{display: 'flex', justifyContent: 'space-between'}}>
+              <b>Total cost: KSH {totalPrice}</b>
+              <Button variant = 'outlined' onClick = {() => navigate('/checkout')}>CHECKOUT</Button>
+            </TableCell>
+          </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
 
-      <Box sx= {{backgroundColor: '#fafafa' }}>
-      <Typography variant = 'body1'>CART DETAILS</Typography>
-      <Typography variant = 'body2'>Total no of items:</Typography>
-      <Typography  variant = 'body2'> {totalqty} </Typography>
-      <Typography  variant = 'body2'>Total amount:</Typography>
-      <Typography  variant = 'body2'> {totalPrice} </Typography>
-      </Box>
+      
+
+ 
       </>
       ) : (
         <>

@@ -15,7 +15,6 @@ import toast from 'react-hot-toast'
 import { Fade } from 'react-reveal';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
-import Navbar from '../Navbar/Navbar';
 
 const theme = createTheme();
 
@@ -60,7 +59,6 @@ export default function SignUp() {
 
   return (
     <>
-    <Navbar />
     <Fade left>
     <ThemeProvider theme={theme}>
       <Container component="main" maxWidth="xs">

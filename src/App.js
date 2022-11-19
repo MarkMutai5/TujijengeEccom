@@ -1,6 +1,5 @@
 
 import {  Route, Routes } from "react-router-dom";
-import Main from "./Components/AddProduct/Main";
 import Admin from "./Components/Admin/Admin";
 import Login from "./Components/Authentication/Login";
 import Signup from "./Components/Authentication/Signup";
@@ -14,6 +13,7 @@ import { Toaster } from "react-hot-toast";
 import Navbar from "./Components/Navbar/Navbar";
 import { useEffect, useState } from "react";
 import { auth } from "./Components/config/firebaseConfig";
+import Checkout from "./Components/Checkout/Checkout";
 
 function App() {  
 
@@ -40,15 +40,16 @@ function App() {
 
               <Route exact path = "/" element = { <Landingpage />}/>
               <Route path="/home" element = { <Products uid = {uid}/> } />
-              <Route path="/addproducts" element = { <Main /> } />
               <Route path="/signup" element = { <Signup /> } />
               <Route path="/login" element = { <Login /> } />
               <Route path = "/cart" element = { <Cart />} />
               <Route path = "/extendedproduct" element = { <ExtendedProduct /> } />
               <Route path = "/admin" element = { <Admin /> } />
               <Route path = '/user' element = { <User />}/>
+              <Route path = '/checkout' element = { <Checkout /> }/>
               <Route path = "*" element = { <Errorpage />} /> 
             </Routes>
+            
     </>
   );
 }
