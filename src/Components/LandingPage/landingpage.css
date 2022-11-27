@@ -1,5 +1,16 @@
 
 .landingcontainer{
+    background-image: url('/public/pexels-pixabay-416405.jpg'); /*width 100%*/
+    background-size: 100%;
+    background-repeat: no-repeat;
+    height: 35rem;
+    padding: 20px;
+    margin: 10px 0px;
+    position: "absolute";
+    width: 100%;
+    color: white;
+}
+.ctatwo{
     background-image: url('/public/2206_w048_n005_141b_p1_141.jpg'); /*width 100%*/
     background-size: 100%;
     background-repeat: no-repeat;
@@ -8,7 +19,7 @@
     margin: 10px 0px;
     position: "absolute";
     width: 100%;
-    
+    color: black;
 }
 .container p{
     font-size: 20px;

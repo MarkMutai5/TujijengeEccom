@@ -9,6 +9,7 @@ import { collection, onSnapshot } from 'firebase/firestore'
 import { useEffect } from 'react'
 import { useState } from 'react'
 import Spinner from '../Spinner/Spinner'
+import toast from 'react-hot-toast'
 
 function Products({uid}) {
 
@@ -42,6 +43,7 @@ function Products({uid}) {
       Stuff['TotalProductPrice'] = Stuff.qty * Stuff.ProductPrice
       database.collection('Cart' + uid).doc(product.ProductId).set(Stuff).then(() => { //was product.ID
         //console.log('Added to cart');
+        toast.success('Added to Cart')
       })
     }
     else{

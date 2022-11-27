@@ -1,6 +1,6 @@
 
 import Carousel from 'react-bootstrap/Carousel';
-import { Box } from '@mui/material';
+import { Box, Button } from '@mui/material';
 
 function CarouselComponent() {
   return (
@@ -9,28 +9,19 @@ function CarouselComponent() {
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="TUJIJENGE.png"
+          src="pexels-anamul-rezwan-1216589.jpg"
           alt="First slide"
           style={{borderRadius: "2ch"}}
         />
-        <Carousel.Caption>
-          <h3>First slide label</h3>
-          <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-        </Carousel.Caption>
       </Carousel.Item>
 
       <Carousel.Item>
         <img
           className="d-block w-100"
-          src="construction3 images.jpeg"
+          src="pexels-pixabay-271667.jpg"
         alt="Second slide"
         style={{borderRadius: "2ch"}}
         />
-
-        <Carousel.Caption>
-          <h3>Second slide label</h3>
-          <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
-        </Carousel.Caption>
       </Carousel.Item>
       <Carousel.Item>
         <img
@@ -39,13 +30,6 @@ function CarouselComponent() {
         alt="Third slide"
         style={{borderRadius: "2ch"}}
         />
-
-        <Carousel.Caption>
-          <h3>Third slide label</h3>
-          <p>
-            Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-          </p>
-        </Carousel.Caption>
       </Carousel.Item>
     </Carousel>  
     </Box>

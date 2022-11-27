@@ -45,15 +45,27 @@ export default function Login() {
       password: Yup.string().required('Password is required').min(6, 'Your password must be longer than 6 characters'),
     }),
     onSubmit: values => {
-      //console.log(`email: ${formik.values.email} and password is ${formik.values.password}`);
-      toast.promise(
-        auth.signInWithEmailAndPassword(formik.values.email, formik.values.password).then(()=>  navigate('/home')),
-         {
-           loading: 'Signing in...',
-           success: 'Successfully logged in',
-           error: err => err.message,
-         }
-       );
+      // toast.promise(
+      //   auth.signInWithEmailAndPassword(formik.values.email, formik.values.password).then(()=>  navigate('/home')),
+      //    {
+      //      loading: 'Signing in...',
+      //      success: 'Successfully logged in',
+      //      error: err => err.message,
+      //    }
+      //  );
+      if(formik.values.email ==='admin@admin.com' && formik.values.password ==='admin123'){
+        navigate('/admin').then(() => toast.success('Logged in as Admin'))
+      }
+      else{
+        toast.promise(auth.signInWithEmailAndPassword(formik.values.email, formik.values.password).then(()=>  navigate('/home')),
+        {
+          loading: 'Signing in...',
+          success: 'Successfully logged in',
+          error: err => err.message,
+        }
+        )
+        
+      }
     }
   })
 

@@ -32,11 +32,12 @@ import { Fade } from 'react-reveal';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import { storage, database, auth } from '../config/firebaseConfig'
-import { Autocomplete, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow } from '@mui/material';
+import { Autocomplete, Paper, Table, TableBody, TableCell, tableCellClasses, TableContainer, TableHead, TableRow, Tooltip } from '@mui/material';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import { collection, onSnapshot } from 'firebase/firestore';
 import Spinner from '../Spinner/Spinner';
+import DoneIcon from '@mui/icons-material/Done';
 
 const theme = createTheme();
 
@@ -88,6 +89,16 @@ const DrawerHeader = styled('div')(({ theme }) => ({
   justifyContent: 'flex-end',
 }));
 
+const StyledTableCell = styled(TableCell)(({theme}) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.info.dark,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 12,
+  },
+}))
+
 export default function Admin() {
 
   let navigate = useNavigate()
@@ -110,12 +121,15 @@ export default function Admin() {
   const [addproducts, setAddProducts] = useState(false)
   const [users, setUsers] = useState([])
   const [viewusers, setViewUsers] = useState(false)
+  const [vieworders, setViewOrders] = useState(false)
+  const [orders, setOrders] = useState([])
 
 
   const handleAddProducts = () => {
     setAddProducts(true);
     setViewUsers(false)
     setViewProducts(false)
+    setViewOrders(false)
   }
 
   const handleLogOut = () => {
@@ -129,14 +143,16 @@ export default function Admin() {
     })
   }
 
+
   const getUsers = () => {
     setLoading(true)
     setViewUsers(true)
     setViewProducts(false)
     setAddProducts(false)
+    setViewOrders(false)
 
     onSnapshot( collection(database, "Userslist"), (snapshot) => {
-      setUsers(snapshot.docs.map(doc => ({...doc.data(), UserId: doc.id  })))
+      setUsers(snapshot.docs.map(doc => ({...doc.data(), UserdocId: doc.id  })))
       setLoading(false)
     })
 }
@@ -147,19 +163,62 @@ export default function Admin() {
     setViewUsers(false)
     setAddProducts(false)
     setViewProducts(true)
+    setViewOrders(false)
+
     onSnapshot( collection(database, "Products"), (snapshot) => {
       setProductsList(snapshot.docs.map(doc => ({...doc.data(), ProductId: doc.id  })))
       setLoading(false)
   })
   }
   
-  // console.log(productslist)
+  const viewOrders = () => {
+    setLoading(true)
+    setViewUsers(false)
+    setAddProducts(false)
+    setViewProducts(false)
+    setViewOrders(true)
 
-  const handleDeleteUser = () => {
-    console.log('deleted')
+    onSnapshot( collection(database, "Orders"), (snapshot) => {
+      setOrders(snapshot.docs.map(doc => ({...doc.data(), OrderId: doc.id  })))
+      setLoading(false)
+  })
   }
-  const handleDeleteProduct = () => {
-    console.log('deleted')
+
+  const handleDeleteUser = (user) => {
+   console.log(user)
+    database.collection('Userslist').doc(user.UserdocId).delete().then(() => {
+      toast.success('User deleted')
+    })
+  }
+
+
+  const handleDeleteProduct = (item) => {
+    console.log(item)
+    database.collection('Products').doc(item.ProductId).delete().then(() => {
+      toast.success('Product deleted')
+    })
+  }
+
+
+  //rejecting and accepting orders
+  let Update;
+  const handleDeleteReject = (order) => {
+    Update = order
+    Update['Status'] = 'Declined'
+
+    database.collection('Orders').doc(order.OrderId).set(Update).then(() => {
+      toast.success('Order Declined')
+    })
+  }
+
+  const handleAccept = (order) => {
+    //console.log(order)
+    Update = order
+    Update['Status'] = 'Accepted'
+
+    database.collection('Orders').doc(order.OrderId).set(Update).then(() => {
+      toast.success('Order Accepted')
+    })
   }
 
   const categories = ['Cement', 'Glass', 'PVC', 'Iron Sheets', ]
@@ -250,14 +309,7 @@ export default function Admin() {
         <Divider />
         <List>
 
-            <ListItem disablePadding>
-              <ListItemButton>
-                <ListItemIcon >
-                  <PersonIcon />
-                </ListItemIcon>
-                <ListItemText primary='My Account' />
-              </ListItemButton>
-            </ListItem>
+            
             <ListItem disablePadding>
               <ListItemButton onClick={handleAddProducts}>
                 <ListItemIcon>
@@ -282,6 +334,15 @@ export default function Admin() {
                   <PeopleAltIcon />
                 </ListItemIcon>
                 <ListItemText primary='View Users' />
+              </ListItemButton>
+            </ListItem>
+
+            <ListItem disablePadding onClick = {viewOrders}>
+              <ListItemButton>
+                <ListItemIcon >
+                  <PersonIcon />
+                </ListItemIcon>
+                <ListItemText primary='View Orders' />
               </ListItemButton>
             </ListItem>
 
@@ -419,30 +480,41 @@ export default function Admin() {
        </>}
 
        {viewusers && <>
-        <TableContainer component = {Paper} style = {{marginTop: '1rem', width: '60%'}}>
+        <TableContainer component = {Paper} sx = {{marginTop: '1rem', width: '60%'}}>
         <Table sx = {{minWidth: 450 }} aria-label="simple table">
           <TableHead sx= {{backgroundColor: 'lightblue'}}>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Email</TableCell>
-              <TableCell>Actions</TableCell>
+              <StyledTableCell>Name</StyledTableCell>
+              <StyledTableCell>Email</StyledTableCell>
+              <StyledTableCell>Actions</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
+
              {users.map((user) => (
-              <TableRow key = {user.UserId} 
+              <TableRow key = {user.UserdocId} 
               sx = {{'&:last-child td, &:last-child th': {  border: 0 },  minHeight: '2rem'}}>
                 <TableCell component="th" scope="row">
                 {user.FirstName + ' ' + user.LastName} 
                 </TableCell>
                 <TableCell >{user.Email}</TableCell>
                 <TableCell >
-                  <IconButton onClick = {() => handleDeleteUser()}>
+                <Tooltip title = 'Delete user'>
+                  <IconButton onClick = {() => handleDeleteUser(user)}>
                       <DeleteIcon />
                   </IconButton>
+                  </Tooltip>
                 </TableCell>
               </TableRow>
             ))} 
+             
+             <TableRow > 
+            <TableCell  colSpan = {6} style = {{display: 'flex', justifyContent: 'space-between'}}>
+              <b>Total Number of Users: {users.length}</b>
+              
+            </TableCell>
+          </TableRow>
+
           </TableBody>
           </Table>
           </TableContainer>
@@ -454,10 +526,10 @@ export default function Admin() {
         <Table sx = {{minWidth: 450 }} aria-label="simple table">
           <TableHead sx= {{backgroundColor: 'lightblue'}}>
             <TableRow>
-              <TableCell>Name</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Category</TableCell>
-              <TableCell>Actions</TableCell>
+              <StyledTableCell>Name</StyledTableCell>
+              <StyledTableCell>Price</StyledTableCell>
+              <StyledTableCell>Category</StyledTableCell>
+              <StyledTableCell>Actions</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -470,12 +542,71 @@ export default function Admin() {
                 <TableCell >{item.ProductPrice}</TableCell>
                 <TableCell >{item.ProductCategory}</TableCell>
                 <TableCell >
-                  <IconButton onClick = {() => handleDeleteProduct()}>
+                <Tooltip title = 'Delete item'>
+                  <IconButton onClick = {() => handleDeleteProduct(item)}>
                       <DeleteIcon />
                   </IconButton>
+                  </Tooltip>
                 </TableCell>
               </TableRow>
             ))} 
+
+            <TableRow > 
+            <TableCell  colSpan = {6} style = {{display: 'flex', justifyContent: 'space-between'}}>
+              <b>Total Number of Products: {productslist.length}</b>
+              
+            </TableCell>
+          </TableRow>
+
+          </TableBody>
+          </Table>
+          </TableContainer>
+       </>}
+
+       {vieworders && <>
+        <TableContainer component = {Paper} style = {{marginTop: '1rem', width: '65%'}}>
+        <Table sx = {{minWidth: 450 }} aria-label="simple table">
+          <TableHead sx= {{backgroundColor: 'lightblue'}}>
+            <TableRow>
+              <StyledTableCell>User Email</StyledTableCell>
+              <StyledTableCell>Adress</StyledTableCell>
+              <StyledTableCell>Phone Number</StyledTableCell>
+              <StyledTableCell>Status</StyledTableCell>
+              <StyledTableCell>Actions</StyledTableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+             {orders.map((order) => (
+              <TableRow key = {order.OrderId} 
+              sx = {{'&:last-child td, &:last-child th': {  border: 0 },  minHeight: '2rem'}}>
+                <TableCell component="th" scope="row">
+                {order.Email} 
+                </TableCell>
+                <TableCell >{order.Address}</TableCell>
+                <TableCell >{order.PhoneNumber}</TableCell>
+                <TableCell >{order.Status}</TableCell>
+                <TableCell >
+                  <Tooltip title = 'Accept order'>
+                  <IconButton onClick = {() => handleAccept(order)}>
+                   <DoneIcon />
+                  </IconButton>
+                  </Tooltip>
+                  <Tooltip title = 'Reject order'>
+                  <IconButton onClick = {() => handleDeleteReject(order)}>
+                      <DeleteIcon />
+                  </IconButton>
+                  </Tooltip>
+                </TableCell>
+              </TableRow>
+            ))} 
+
+            <TableRow > 
+            <TableCell  colSpan = {6} style = {{display: 'flex', justifyContent: 'space-between'}}>
+              <b>Total Number of Orders: {orders.length}</b>
+              
+            </TableCell>
+          </TableRow>
+
           </TableBody>
           </Table>
           </TableContainer>

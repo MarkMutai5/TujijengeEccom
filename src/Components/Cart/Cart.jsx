@@ -1,18 +1,39 @@
 
 import React, { useState, useEffect } from 'react'
 import {auth, database} from '../config/firebaseConfig'
-import {Box, Grid, IconButton, Paper, TableBody, TableCell, Typography} from '@material-ui/core'
-import { useDispatch } from 'react-redux';
-import { getCartProducts } from '../../Slices/CartSlice';
-import {  Button, Table, TableContainer, TableHead, TableRow } from '@mui/material';
+import {Box, createTheme, IconButton, Paper, styled, TableBody, TableCell, Tooltip, Typography} from '@material-ui/core'
+import {  Button, Table, tableCellClasses, TableContainer, TableHead, TableRow } from '@mui/material';
 import Spinner from '../Spinner/Spinner';
 import DeleteIcon from '@mui/icons-material/Delete';
 import { Link, useNavigate } from 'react-router-dom';
+import Avatar from '@mui/material/Avatar';
+import CssBaseline from '@mui/material/CssBaseline';
+import TextField from '@mui/material/TextField';
+import PaymentIcon from '@mui/icons-material/Payment';
+import Container from '@mui/material/Container';
+import { ThemeProvider } from '@mui/material/styles';
+import { useFormik } from 'formik';
+import * as Yup from "yup";
+import toast from 'react-hot-toast';
+
+const theme = createTheme();
+
+const StyledTableCell = styled(TableCell)(({theme}) => ({
+  [`&.${tableCellClasses.head}`]: {
+    backgroundColor: theme.palette.info.dark,
+    color: theme.palette.common.white,
+  },
+  [`&.${tableCellClasses.body}`]: {
+    fontSize: 12,
+  },
+}))
 
 
-function Cart() {
+function Cart( {currentUser, uid} ) {
 
   let navigate = useNavigate()
+
+  //console.log(currentUser)
 
   const [cartProducts, setCartProducts] = useState([])
   const [loading, setLoading] = useState(true)
@@ -35,11 +56,7 @@ function Cart() {
     })    
   }, [])
 
-  // const dispatch = useDispatch()
-
-  // useEffect(() => {
-  //   dispatch(getCartProducts())
-  // }, [])
+  //console.log(cartProducts)
 
   let Item
 
@@ -92,32 +109,64 @@ function Cart() {
 
     //console.log(totalPrice);
 
+
+    const formik = useFormik({
+      enableReinitialize: true,
+      initialValues: {
+        email: `${currentUser?.email}`,
+        amount: `${totalPrice} `,
+        phone: "",
+        address: ""
+      },
+      validationSchema: Yup.object({
+        phone: Yup.string().required('Phone Number is required').min(10, 'Phone number should be at least 10 digits').max(13, 'Phone number should not be longer than 13 digits'),
+        address: Yup.string().required('Address is required'),
+      }),
+      onSubmit: values => {
+        //console.log(formik.values.email, formik.values.amount)
+        toast.promise(
+          database.collection('Orders').add({
+            Email: formik.values.email,
+            Amount: formik.values.amount,
+            PhoneNumber: formik.values.phone,
+            Address: formik.values.address,
+            UserId: uid,
+            Status: 'Pending',
+          }),
+           {
+             loading: 'Filling up your order...',
+             success: 'Order uccessfully placed',
+             error: err => err.message,
+           }
+         );
+      }
+    })
+  
+
   return (
     
       <>
       { loading && ( <Spinner />)}
       { cartProducts.length > 0 ? (
         <>
-        <TableContainer component = {Paper} style = {{marginTop: '1rem', width: '100%'}}>
+        <TableContainer component = {Paper} style = {{marginTop: '1rem', marginLeft: '2rem', width: '80%'}}>
         <Table sx = {{minWidth: 450 }} aria-label="simple table">
-          <TableHead sx= {{backgroundColor: 'lightblue'}}>
+          <TableHead  sx= {{backgroundColor: theme.palette.info.dark}}>
             <TableRow>
-              <TableCell>Image</TableCell>
-              <TableCell>Name</TableCell>
-              <TableCell>Price</TableCell>
-              <TableCell>Quantity</TableCell>
-              <TableCell>Actions</TableCell>
+              <StyledTableCell>Name</StyledTableCell>
+              <StyledTableCell>Price</StyledTableCell>
+              <StyledTableCell>Quantity</StyledTableCell>
+              <StyledTableCell>Actions</StyledTableCell>
             </TableRow>
           </TableHead>
           <TableBody>
   
           {cartProducts.map((cartProduct) => (
-            <TableRow key = {cartProduct.Id} 
+            <TableRow key = {cartProduct.ID} 
             sx = {{'&:last-child td, &:last-child th': {  border: 0 },  minHeight: '2rem'}}>
               <TableCell component="th" scope="row">
-                  {cartProduct.ProductName}
+                {cartProduct.ProductName}
               </TableCell>
-              <TableCell >{cartProduct.ProductName}</TableCell>
               <TableCell >KSH{cartProduct.TotalProductPrice}</TableCell>
               <TableCell > 
                 <IconButton onClick = {() => handleDecrease(cartProduct)}>-</IconButton>
@@ -125,24 +174,102 @@ function Cart() {
                 <IconButton onClick = {() => handleIncrease(cartProduct)}>+</IconButton>
               </TableCell>
               <TableCell >
+                <Tooltip title = 'Remove item'>
                 <IconButton onClick={() => handleDelete(cartProduct)}>
                     <DeleteIcon/>
                 </IconButton>
+                </Tooltip>
               </TableCell>
             </TableRow>
           ))}
-          <TableRow sx= {{backgroundColor: 'lightblue'}}>
-            <TableCell  colspan = {6} style = {{display: 'flex', justifyContent: 'space-between'}}>
+          <TableRow > 
+            <TableCell  colSpan = {6} style = {{display: 'flex', justifyContent: 'space-between'}}>
               <b>Total cost: KSH {totalPrice}</b>
-              <Button variant = 'outlined' onClick = {() => navigate('/checkout')}>CHECKOUT</Button>
             </TableCell>
           </TableRow>
           </TableBody>
         </Table>
       </TableContainer>
 
-      
-
+      <ThemeProvider theme={theme}>
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box
+          sx={{
+            marginTop: 8,
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+          }}
+        >
+          <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
+            <PaymentIcon />
+          </Avatar>
+          <Typography component="h1" variant="h5">
+            CHECKOUT
+          </Typography>
+          <Box component="form" onSubmit={ formik.handleSubmit}  sx={{ mt: 1 }}>
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              value = {currentUser.email}
+              disabled = {true}
+              id="email"
+              label="Email Address"
+              name="email"
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="phone"
+              label="Phone Number"
+              name="phone"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.phone}
+              error = {Boolean(formik.touched.phone && formik.errors.phone)}
+              helperText = {formik.touched.phone && formik.errors.phone} 
+              
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              id="address"
+              label="Delivery Address"
+              name="address"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.address}
+              error = {Boolean(formik.touched.address && formik.errors.address)}
+              helperText = {formik.touched.address && formik.errors.address} 
+              
+            />
+            <TextField
+              margin="normal"
+              required
+              fullWidth
+              disabled = {true}
+              id="amount"
+              label="Amount Payable"
+              name="amount"   
+              value = {totalPrice}           
+            />
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              sx={{ mt: 3, mb: 2 }}
+            >
+             PAY
+            </Button>
+            
+          </Box>
+        </Box>
+      </Container>
+    </ThemeProvider>
  
       </>
       ) : (
@@ -152,9 +279,6 @@ function Cart() {
         
       )}
     
-    
-   
-
     </>
   )
 }
