@@ -14,6 +14,7 @@ import { useEffect, useState } from "react";
 import { auth } from "./Components/config/firebaseConfig";
 import Review from "./Components/CustomerReview/Review";
 import Account from "./Components/Account/Account";
+import Setup from "./Components/Emailsetup/Setup";
 
 function App() {  
 
@@ -53,6 +54,7 @@ function App() {
               <Route path = "/admin" element = { <Admin /> } />
               <Route path = '/reviews' element = { <Review  /> }/>
               <Route path="/account" element = { <Account uid = {uid} currentUser = {currentUser}/>}/>
+              <Route path ="/setup" element = { <Setup currentUser = {currentUser}/> } />
               <Route path = "*" element = { <Errorpage />} /> 
             </Routes>
 

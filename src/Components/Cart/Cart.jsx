@@ -15,6 +15,8 @@ import { ThemeProvider } from '@mui/material/styles';
 import { useFormik } from 'formik';
 import * as Yup from "yup";
 import toast from 'react-hot-toast';
+import StripeCheckout from 'react-stripe-checkout';
+
 
 const theme = createTheme();
 
@@ -141,6 +143,11 @@ function Cart( {currentUser, uid} ) {
          );
       }
     })
+
+
+    const onToken = (token) => {
+      console.log(token)
+    }
   
 
   return (
@@ -271,6 +278,14 @@ function Cart( {currentUser, uid} ) {
       </Container>
     </ThemeProvider>
  
+
+    <StripeCheckout
+        token={onToken}
+        name = 'Tujijenge'
+        currency='KES'
+        stripeKey="pk_test_51M9cTFJOYDbDhTU0qHM8kqPenz2a9h8Wxmss3HKnaUM5cnIzIReeLBaXaQ2JTZAngTzoM8Nap2WlixrojSeuyrzp00c2nQBi3r"
+      />
+
       </>
       ) : (
         <>

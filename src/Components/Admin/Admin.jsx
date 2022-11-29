@@ -124,12 +124,15 @@ export default function Admin() {
   const [vieworders, setViewOrders] = useState(false)
   const [orders, setOrders] = useState([])
 
+  // const [reviews, setReviews] = useState([])
+  // const [showReviews, setShowReviews] = useState(false)
 
   const handleAddProducts = () => {
     setAddProducts(true);
     setViewUsers(false)
     setViewProducts(false)
     setViewOrders(false)
+    //setShowReviews(false)
   }
 
   const handleLogOut = () => {
@@ -150,6 +153,7 @@ export default function Admin() {
     setViewProducts(false)
     setAddProducts(false)
     setViewOrders(false)
+    //setShowReviews(false)
 
     onSnapshot( collection(database, "Userslist"), (snapshot) => {
       setUsers(snapshot.docs.map(doc => ({...doc.data(), UserdocId: doc.id  })))
@@ -164,6 +168,7 @@ export default function Admin() {
     setAddProducts(false)
     setViewProducts(true)
     setViewOrders(false)
+    //setShowReviews(false)
 
     onSnapshot( collection(database, "Products"), (snapshot) => {
       setProductsList(snapshot.docs.map(doc => ({...doc.data(), ProductId: doc.id  })))
@@ -177,12 +182,35 @@ export default function Admin() {
     setAddProducts(false)
     setViewProducts(false)
     setViewOrders(true)
+    //setShowReviews(false)
 
     onSnapshot( collection(database, "Orders"), (snapshot) => {
       setOrders(snapshot.docs.map(doc => ({...doc.data(), OrderId: doc.id  })))
       setLoading(false)
   })
   }
+
+  // const handleReviews = () => {
+  //   setShowReviews(true)
+  //   setViewUsers(false)
+  //   setAddProducts(false)
+  //   setViewProducts(false)
+  //   setViewOrders(false)
+
+  //   auth.onAuthStateChanged(user =>{
+  //     if(user){
+  //     database.collection('Reviews').onSnapshot(snapshot => {
+  //         const newReviews = snapshot.docs.map((doc) => ({
+  //         ID: doc.id,
+  //         ...doc.data(),
+  //         }))
+  //         setReviews(newReviews)
+  //     })
+  //     }
+  // })
+  // }
+
+  //console.log(reviews)
 
   const handleDeleteUser = (user) => {
    console.log(user)
@@ -350,14 +378,14 @@ export default function Admin() {
         <Divider />
         <List>
 
-          <ListItem disablePadding>
-            <ListItemButton>
+          {/* <ListItem disablePadding>
+            <ListItemButton onClick = {handleReviews}>
               <ListItemIcon>
                 <ReviewsIcon />
               </ListItemIcon>
               <ListItemText primary='Reviews' />
             </ListItemButton>
-          </ListItem>
+          </ListItem> */}
 
           <ListItem  disablePadding>
             <ListItemButton onClick = {handleLogOut}>
@@ -611,6 +639,15 @@ export default function Admin() {
           </Table>
           </TableContainer>
        </>}
+
+       {/* {showReviews && <>
+        {reviews.map((review) => (
+          <Box key = {review.ID}>
+            <span>{review.DateUploaded}</span>
+            <p>{review.Review}</p>
+          </Box>
+        ))}
+       </>} */}
        
       </Main>
     </Box>

@@ -54,7 +54,7 @@ function Navbar({ currentUser}) {
         navigate('/account')
       }
       else{
-        navigate('/signup')
+        navigate('/login')
       }
     })
   }
@@ -76,7 +76,11 @@ function Navbar({ currentUser}) {
           
                   <ul className='navitems'>
 
-                    {currentUser ? (
+                    {!currentUser && <li>
+                      <Button variant='outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem'}} onClick = {() => navigate('/login')}>LOGIN</Button>
+                      </li>}
+
+                    {/* {currentUser ? (
                       <li>
                       <Button variant='outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem'}} onClick = {() => handleSignout()}>LOGOUT</Button>
                     </li>
@@ -84,7 +88,7 @@ function Navbar({ currentUser}) {
                       <li>
                       <Button variant='outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem'}} onClick = {() => navigate('/login')}>LOGIN</Button>
                     </li>
-                    )}
+                    )} */}
                     
                     <li>
                         <Button variant = 'outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem'}} onClick = {()=> navigate('/home')}>HOME</Button>
