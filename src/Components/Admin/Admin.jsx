@@ -528,7 +528,7 @@ export default function Admin() {
                 <TableCell >{user.Email}</TableCell>
                 <TableCell >
                 <Tooltip title = 'Delete user'>
-                  <IconButton onClick = {() => handleDeleteUser(user)}>
+                  <IconButton color = 'error' onClick = {() => handleDeleteUser(user)}>
                       <DeleteIcon />
                   </IconButton>
                   </Tooltip>
@@ -571,7 +571,7 @@ export default function Admin() {
                 <TableCell >{item.ProductCategory}</TableCell>
                 <TableCell >
                 <Tooltip title = 'Delete item'>
-                  <IconButton onClick = {() => handleDeleteProduct(item)}>
+                  <IconButton color = 'error' onClick = {() => handleDeleteProduct(item)}>
                       <DeleteIcon />
                   </IconButton>
                   </Tooltip>
@@ -615,12 +615,12 @@ export default function Admin() {
                 <TableCell >{order.Status}</TableCell>
                 <TableCell >
                   <Tooltip title = 'Accept order'>
-                  <IconButton onClick = {() => handleAccept(order)}>
+                  <IconButton color = 'success' onClick = {() => handleAccept(order)}>
                    <DoneIcon />
                   </IconButton>
                   </Tooltip>
                   <Tooltip title = 'Reject order'>
-                  <IconButton onClick = {() => handleDeleteReject(order)}>
+                  <IconButton color = 'error' onClick = {() => handleDeleteReject(order)}>
                       <DeleteIcon />
                   </IconButton>
                   </Tooltip>

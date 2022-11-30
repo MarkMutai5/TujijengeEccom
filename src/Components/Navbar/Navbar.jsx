@@ -68,7 +68,7 @@ function Navbar({ currentUser}) {
     <>
     <Box sx={{   height: '4rem',
       width: '100%',
-      backgroundColor: color,
+      backgroundColor: '#fafafa',
       display: 'flex',
       justifyContent: 'space-between',
       boxShadow: '0 1px 2px 0 black'
@@ -81,7 +81,7 @@ function Navbar({ currentUser}) {
                   <ul className='navitems'>
 
                     {!currentUser && <li>
-                      <Button variant='outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem', color: 'white'}} onClick = {() => navigate('/login')}>LOGIN</Button>
+                      <Button variant='outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem'}} onClick = {() => navigate('/login')}>LOGIN</Button>
                       </li>}
 
                     {/* {currentUser ? (
@@ -95,7 +95,7 @@ function Navbar({ currentUser}) {
                     )} */}
                     
                     <li>
-                        <Button variant = 'outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem', color: 'white'}} onClick = {()=> navigate('/home')}>HOME</Button>
+                        <Button variant = 'outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem'}} onClick = {()=> navigate('/home')}>HOME</Button>
                       </li>
       
                       <li>

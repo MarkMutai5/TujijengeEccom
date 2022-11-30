@@ -183,13 +183,13 @@ function Cart( {currentUser, uid} ) {
               </TableCell>
               <TableCell >KSH{cartProduct.TotalProductPrice}</TableCell>
               <TableCell > 
-                <IconButton onClick = {() => handleDecrease(cartProduct)}>-</IconButton>
+                <IconButton color = 'error' onClick = {() => handleDecrease(cartProduct)}>-</IconButton>
                   {cartProduct.qty}
-                <IconButton onClick = {() => handleIncrease(cartProduct)}>+</IconButton>
+                <IconButton color = 'success' onClick = {() => handleIncrease(cartProduct)}>+</IconButton>
               </TableCell>
               <TableCell >
                 <Tooltip title = 'Remove item'>
-                <IconButton onClick={() => handleDelete(cartProduct)}>
+                <IconButton color = 'error' onClick={() => handleDelete(cartProduct)}>
                     <DeleteIcon/>
                 </IconButton>
                 </Tooltip>
@@ -271,15 +271,17 @@ function Cart( {currentUser, uid} ) {
               name="amount"   
               value = {totalPrice}           
             />
+            <Box sx = {{display: 'flex', justifyContent: 'space-between', marginBottom: '2rem'}}>
             <Button
               type="submit"
               fullWidth
               variant="contained"
-              sx={{ mt: 3, mb: 2 }}
+              sx={{ mt: 3, mb: 2, width: '40%'}}
             >
              PAY ON DELIVERY
             
             </Button>
+            <Box sx= {{width: '50%', marginTop: '0.4rem'}}>
             <StripeCheckout
               token={onToken}
               name = 'Tujijenge'
@@ -287,7 +289,10 @@ function Cart( {currentUser, uid} ) {
               amount = {totalPrice * 100}
               email = {currentUser.email}
               stripeKey="pk_test_51M9cTFJOYDbDhTU0qHM8kqPenz2a9h8Wxmss3HKnaUM5cnIzIReeLBaXaQ2JTZAngTzoM8Nap2WlixrojSeuyrzp00c2nQBi3r"
-      />
+            />
+            </Box>            
+            </Box>
+            
           </Box>
         </Box>
       </Container>
