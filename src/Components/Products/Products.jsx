@@ -17,6 +17,8 @@ function Products({uid}) {
 
   // const {products} = useContext(ProductsContext)
 
+  //console.log(uid)
+
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
 

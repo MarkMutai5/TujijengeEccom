@@ -6,8 +6,12 @@ import './navbar.css'
 import { auth, database } from '../config/firebaseConfig';
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
+import {blue} from '@mui/material/colors'
 
 function Navbar({ currentUser}) {  
+
+  const color = blue[700]
+  const iconcolor = blue[50]
 
   let navigate = useNavigate()
 
@@ -64,7 +68,7 @@ function Navbar({ currentUser}) {
     <>
     <Box sx={{   height: '4rem',
       width: '100%',
-      backgroundColor: '#fafafa',
+      backgroundColor: color,
       display: 'flex',
       justifyContent: 'space-between',
       boxShadow: '0 1px 2px 0 black'
@@ -77,7 +81,7 @@ function Navbar({ currentUser}) {
                   <ul className='navitems'>
 
                     {!currentUser && <li>
-                      <Button variant='outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem'}} onClick = {() => navigate('/login')}>LOGIN</Button>
+                      <Button variant='outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem', color: 'white'}} onClick = {() => navigate('/login')}>LOGIN</Button>
                       </li>}
 
                     {/* {currentUser ? (
@@ -91,12 +95,12 @@ function Navbar({ currentUser}) {
                     )} */}
                     
                     <li>
-                        <Button variant = 'outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem'}} onClick = {()=> navigate('/home')}>HOME</Button>
+                        <Button variant = 'outlined' style = {{ paddingTop: '0.34rem', cursor: 'pointer', marginRight: '0.8rem', color: 'white'}} onClick = {()=> navigate('/home')}>HOME</Button>
                       </li>
       
                       <li>
                       <Tooltip title="Open cart">
-                          <IconButton aria-label="cart" onClick = {()=> navigate('/cart')}> 
+                          <IconButton aria-label="cart" onClick = {()=> navigate('/cart')}  sx = {{color: iconcolor}}> 
                               <Badge badgeContent={totalProducts} color="secondary" overlap="rectangular">
                                   <AddShoppingCartOutlined  />
                               </Badge>
@@ -109,7 +113,7 @@ function Navbar({ currentUser}) {
                           
                         </IconButton> */}
                         <Tooltip title="Open settings">
-                          <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                          <IconButton onClick={handleOpenUserMenu} sx={{ p: 0, color: iconcolor }}>
                             <AccountCircleIcon/>
                           </IconButton>
                         </Tooltip>

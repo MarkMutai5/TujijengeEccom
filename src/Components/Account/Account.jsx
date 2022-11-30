@@ -33,7 +33,7 @@ import List from '@mui/material/List';
 import Divider from '@mui/material/Divider';
 import IconButton from '@mui/material/IconButton';
 import ChevronLeftIcon from '@mui/icons-material/ChevronLeft';
-import { ListItemButton, ListItemIcon, ListItemText, tableCellClasses, TextField } from '@mui/material';
+import { CardContent, ListItemButton, ListItemIcon, ListItemText, tableCellClasses, TextField, Typography } from '@mui/material';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
 import BarChartIcon from '@mui/icons-material/BarChart';
@@ -42,7 +42,10 @@ import { auth, database } from '../config/firebaseConfig'
 import toast from 'react-hot-toast';
 import { useNavigate } from 'react-router-dom';
 import ReceiptIcon from '@mui/icons-material/Receipt';
-import { Button, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@material-ui/core';
+import { Button, Card, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@material-ui/core';
+import { collection, onSnapshot } from 'firebase/firestore';
+import Receipts from '../Receipts/Receipts';
+import Setup from '../Emailsetup/Setup';
 
 const drawerWidth = 240;
 
@@ -102,7 +105,7 @@ const StyledTableCell = styled(TableCell)(({theme}) => ({
 
 const mdTheme = createTheme();
 
-export default function Account({uid, currentUser }) {
+export default function Account({uid }) {
 
   let navigate = useNavigate()
 
@@ -114,14 +117,22 @@ export default function Account({uid, currentUser }) {
   const [orders, setOrders] = useState([])
   const [showOrders, setShowOrders] = useState(false)
 
-  const [showAccount, setShowAccount] = useState(false)
+  const [showAccount, setShowAccount] = useState(true)
 
   const [reviews, setReviews] = useState([])
   const [showReviews, setShowReviews] = useState(false)
 
+  const [viewReceipts, setviewReceipts] = useState(false)
+  const [reviewform, setreviewForm] = useState(false)
+
+  const [users, setUsers] = useState([])
+
+
   const hanldeOrders =() => {
     setShowOrders(true)
     setShowAccount(false)
+    setreviewForm(false)
+    setviewReceipts(false)
     setShowReviews(false)
     auth.onAuthStateChanged(user =>{
         if(user){
@@ -140,14 +151,23 @@ export default function Account({uid, currentUser }) {
     setShowAccount(true)
     setShowOrders(false)
     setShowReviews(false)
+    setreviewForm(false)
+    setviewReceipts(false)
+
+    onSnapshot( collection(database, "Userslist"), (snapshot) => {
+      setUsers(snapshot.docs.map(doc => ({...doc.data(), UserdocId: doc.id  })))
+    })
   }
 
-  //console.log(currentUser)
+  console.log(users)
 
   const handleReviews = () => {
     setShowReviews(true)
     setShowAccount(false)
     setShowOrders(false)
+    setviewReceipts(false)
+    setreviewForm(false)
+
 
     auth.onAuthStateChanged(user =>{
       if(user){
@@ -163,6 +183,22 @@ export default function Account({uid, currentUser }) {
   }
 
   //console.log(reviews)
+  
+  const handleReceipts = () => {
+    setviewReceipts(true)
+    setShowReviews(false)
+    setShowAccount(false)
+    setShowOrders(false)
+    setreviewForm(false)
+  }
+
+  const handleShowreview = () => {
+    setreviewForm(true)
+    setviewReceipts(false)
+    setShowReviews(false)
+    setShowAccount(false)
+    setShowOrders(false)
+  }
 
   const handleSignout = () => {
     toast.promise( auth.signOut().then(() => {
@@ -281,7 +317,7 @@ export default function Account({uid, currentUser }) {
                     <TableCell >{filteredOrders.Status}</TableCell>
                     <TableCell >
                     <Tooltip title = 'View Receipt'>
-                      <IconButton>
+                      <IconButton onClick = { () => handleReceipts(filteredOrders)}>
                           <ReceiptIcon />
                       </IconButton>
                       </Tooltip>
@@ -294,14 +330,14 @@ export default function Account({uid, currentUser }) {
             </>}
 
             {showAccount  && <>
-              <Box sx = {{width : '90%',
+              <Box sx = {{width : '50%',
                 minWidth: '500px',
-                height: '80%',
-                minHeight : '500px',
+                height: '50%',
+                minHeight : '300px',
                 border: 1,
                 borderRadius: 2,
                 display: 'flex',
-                justifyContent: 'space-between',
+                justifyContent: 'center',
                 borderColor: 'gray',
                 marginTop: -3,
                 marginLeft: 3,
@@ -312,99 +348,62 @@ export default function Account({uid, currentUser }) {
                 // borderColor: 'blue',
                 margin: 3,
               }}>
-                  <h5>Profile</h5>
-                  <Box component = 'form' sx={{ mt: 3 }}>
-                      <TextField 
-                      fullWidth
-                      margin="normal"
-                      label ='Name'/>
-
-                      <TextField 
-                      margin="normal"
-                      fullWidth
-                      label ='Email'/>
-
-                      <TextField 
-                      margin="normal"
-                      fullWidth
-                      label ='Phone Number'/>
-
-                      <TextField 
-                      margin="normal"
-                      fullWidth
-                      label ='Address'/>
-                       <Box m={1}
-                            display="flex"
-                            justifyContent="flex-end"
-                            alignItems="flex-end">
-                          <Button>Save </Button>
-                        </Box>
-                  </Box>
+                  <h5 style = {{paddingTop: '0.5rem', textDecoration: 'underline', textDecorationColor: 'blue'}}>Profile</h5>
+                  {users.filter(user => user.UserdocId === uid).map(filteredUser => (<>
+                    <Box key = {filteredUser.ID}>
+                      <Box><strong>Email:</strong> <br/ >{filteredUser.Email}</Box> <br/ >
+                      <Box><strong>First Name:</strong> <br/ >{filteredUser.FirstName}</Box><br/ >
+                      <Box><strong>Last Name:</strong> <br/ >{filteredUser.LastName}</Box><br/ >
+                      </Box>
+                  </>))}
+                      
                 </Box>
-
-                {/* <Box sx = {{width: '50%',
-                // border: 1,
-                // borderColor: 'blue',
-                margin: 3,
-                
-                  }}>
-                  <h5>Change Password</h5>
-                  <Box component = 'form' sx={{ mt: 3 }}>
-                  <TextField 
-                      margin="normal"
-                      fullWidth
-                      label ='Current Password'/>
-
-                      <TextField 
-                      margin="normal"
-                      fullWidth
-                      label ='New Password'/>
-
-                      <TextField 
-                      margin="normal"
-                      fullWidth
-                      label ='Confirm Password'/>
-                          <Box m={1}
-                            display="flex"
-                            justifyContent="flex-end"
-                            alignItems="flex-end">
-                          <Button>Save Changes</Button>
-                        </Box>
-                  </Box>
-                </Box> */}
 
               </Box>
             </>}
 
             { showReviews && <>
-              <Box sx = {{width : '90%',
+              <Box sx = {{width : '50%',
                 minWidth: '500px',
-                height: '80%',
+                height: '50%',
                 minHeight : '500px',
-                border: 1,
-                borderRadius: 2,
                 display: 'flex',
-                justifyContent: 'center',
                 borderColor: 'gray',
                 marginTop: -3,
                 marginLeft: 3,
             }}>
               <Box sx = {{marginTop: 3,
               }}>
-                <h5>Review and Rating</h5>
+                
               </Box>
-              <br />
               <Box>
+              <h5 style = {{paddingTop: '0.5rem', textDecoration: 'underline', textDecorationColor: 'blue'}}>Review and Rating</h5>
               {reviews.filter(review => review.UserId === uid).map(filteredReviews => (<>
-              <Box key = {filteredReviews.ID}>
-                <h5>{filteredReviews.Review}</h5>
-                <h5>{filteredReviews.DateUploaded}</h5>
-              </Box>
+              <Card key = {filteredReviews.ID} sx= {{marginBottom: 2}}>
+                <CardContent>
+                    <Typography variant = 'body1'>{filteredReviews.Review}</Typography><br />
+                    <Typography variant = 'body2'>Date added: {filteredReviews.DateUploaded}</Typography><br />
+                </CardContent>
+              </Card>
                 
               </>))}
+
+              <Button variant = 'outlined' sx = {{margin: '1rem'}} rows = {4} onClick = {handleShowreview}>ADD REVIEW</Button>
+              <Box sx = {{m:2}}>
+                  {reviewform && <>
+                  <Setup uid = {uid}/>
+                </>}
               </Box>
+             
+              </Box>
+
+              {viewReceipts && <>
+              <Receipts/>
+            </>}
+
             </Box>
             </>}
+
         </Box>
       </Box>
     </ThemeProvider>

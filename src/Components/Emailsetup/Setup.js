@@ -1,10 +1,10 @@
 import { Box, TextField, Button } from '@material-ui/core'
-import React, { useRef } from 'react'
-import { database } from '../config/firebaseConfig'
+import { collection, onSnapshot } from 'firebase/firestore'
+import React, { useRef, useEffect, useState } from 'react'
+import toast from 'react-hot-toast'
+import { auth, database } from '../config/firebaseConfig'
 
-const Setup = ( {currentUser}) => {
-
-  //console.log(currentUser)
+const Setup = ( {uid}) => {
 
   const reviewRef = useRef()
 
@@ -15,18 +15,27 @@ const Setup = ( {currentUser}) => {
 
   let currentDate = `${day}-${month}-${year}`
 
+  console.log(uid);
+
   const handleSend = () => {
-    database.collection('Reviews').add({
-      UserId: currentUser.uid,
-      Review: reviewRef.current.value,
-      DateUploaded: currentDate 
-    }).then(() => {})
+    auth.onAuthStateChanged(user => {
+      if(user){
+        database.collection('Reviews').add({
+          UserId: uid,
+          Review: reviewRef.current.value,
+          DateUploaded: currentDate 
+        }).then(() => {
+          
+          toast.success('Your review has been successfuly added')
+        })
+      }
+    })
   }
 
   return (
     <div>
-      <Box>
-        <TextField label = 'Review'  inputRef={reviewRef}/>
+      <Box component='form'>
+        <TextField label = 'Review' variant='outlined' multiline inputRef={reviewRef}/>
         <Button onClick = {handleSend}>Send</Button>
       </Box>
     </div>

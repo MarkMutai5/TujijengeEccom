@@ -140,7 +140,14 @@ function Cart( {currentUser, uid} ) {
              success: 'Order uccessfully placed',
              error: err => err.message,
            }
-         );
+         ).then(()=> {
+          toast('Thank you for visiting us. You will be redirected to the home page in 6 seconds',{
+            duration: 6000,
+          })
+          setTimeout(() => {
+            navigate('/home')
+          }, 5000);
+         })
       }
     })
 
@@ -270,21 +277,24 @@ function Cart( {currentUser, uid} ) {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
             >
-             PAY
-            </Button>
+             PAY ON DELIVERY
             
+            </Button>
+            <StripeCheckout
+              token={onToken}
+              name = 'Tujijenge'
+              currency='KES'
+              amount = {totalPrice * 100}
+              email = {currentUser.email}
+              stripeKey="pk_test_51M9cTFJOYDbDhTU0qHM8kqPenz2a9h8Wxmss3HKnaUM5cnIzIReeLBaXaQ2JTZAngTzoM8Nap2WlixrojSeuyrzp00c2nQBi3r"
+      />
           </Box>
         </Box>
       </Container>
     </ThemeProvider>
  
 
-    <StripeCheckout
-        token={onToken}
-        name = 'Tujijenge'
-        currency='KES'
-        stripeKey="pk_test_51M9cTFJOYDbDhTU0qHM8kqPenz2a9h8Wxmss3HKnaUM5cnIzIReeLBaXaQ2JTZAngTzoM8Nap2WlixrojSeuyrzp00c2nQBi3r"
-      />
+    
 
       </>
       ) : (
