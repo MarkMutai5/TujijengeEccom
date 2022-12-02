@@ -15,6 +15,7 @@ import { auth } from "./Components/config/firebaseConfig";
 import Review from "./Components/CustomerReview/Review";
 import Account from "./Components/Account/Account";
 import Receipts from "./Components/Receipts/Receipts";
+import Setup from "./Components/Emailsetup/Setup";
 
 function App() {  
 
@@ -55,6 +56,7 @@ function App() {
               <Route path = '/reviews' element = { <Review  /> }/>
               <Route path="/account" element = { <Account uid = {uid} />}/>
               <Route path="/receipts" element = { <Receipts />}/> 
+              <Route path = '/setup' element = { <Setup uid = {uid}/>} />
               <Route path = "*" element = { <Errorpage />} /> 
             </Routes>
 

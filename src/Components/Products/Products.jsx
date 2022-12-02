@@ -10,6 +10,9 @@ import { useEffect } from 'react'
 import { useState } from 'react'
 import Spinner from '../Spinner/Spinner'
 import toast from 'react-hot-toast'
+import SearchIcon from '@mui/icons-material/Search';
+import { Box } from '@mui/system'
+import { IconButton, InputAdornment, TextField } from '@mui/material'
 
 function Products({uid}) {
 
@@ -21,6 +24,7 @@ function Products({uid}) {
 
   const [products, setProducts] = useState([])
   const [loading, setLoading] = useState(true)
+  const [searchItem, setSearchItem] = useState("")
 
   useEffect(() => {
     //https://www.youtube.com/watch?v=TkRjjq9J0tA
@@ -53,13 +57,32 @@ function Products({uid}) {
     }
     
   }
-  
+
   return (
    <>
       {loading && ( <Spinner /> )}
+
+        <Box sx = {{margin: 2, float: 'left', width: '100%'}}> 
+          <TextField variant='outlined'
+          InputProps={{
+            startardonment :(
+              <InputAdornment position = 'start'>
+                <SearchIcon/>
+              </InputAdornment>
+            ),
+          }}
+          type= 'text' 
+          label = 'Search'
+          value={searchItem} 
+          onChange = {(e) => setSearchItem(e.target.value)}/>
+        </Box>
+
         <Grid container justifyContent = 'center' > {/*spacing = {2}*/}
         
-          {products.map((product) => (
+          {products.filter((product) => {
+            return searchItem.toLowerCase() === '' ? product
+             : product.ProductName.toLowerCase().includes(searchItem)
+          }).map((product) => (
             <Grid item key={product.ProductId} xs = {12} sm = {6} md = {4} lg={3}> 
               <Product product = {product} addToCart = {addToCart} />
             </Grid>

@@ -592,15 +592,15 @@ export default function Admin() {
        </>}
 
        {vieworders && <>
-        <TableContainer component = {Paper} style = {{marginTop: '1rem', width: '65%'}}>
+        <TableContainer component = {Paper} style = {{marginTop: '1rem', width: '75%'}}>
         <Table sx = {{minWidth: 450 }} aria-label="simple table">
           <TableHead sx= {{backgroundColor: 'lightblue'}}>
             <TableRow>
               <StyledTableCell>User Email</StyledTableCell>
               <StyledTableCell>Adress</StyledTableCell>
               <StyledTableCell>Phone Number</StyledTableCell>
-              <StyledTableCell>Status</StyledTableCell>
-              <StyledTableCell>Actions</StyledTableCell>
+              {/* <StyledTableCell>Status</StyledTableCell>
+              <StyledTableCell>Actions</StyledTableCell> */}
             </TableRow>
           </TableHead>
           <TableBody>
@@ -612,11 +612,11 @@ export default function Admin() {
                 </TableCell>
                 <TableCell >{order.Address}</TableCell>
                 <TableCell >{order.PhoneNumber}</TableCell>
-                <TableCell >{order.Status}</TableCell>
+                {/* <TableCell >{order.Status}</TableCell>
                 <TableCell >
                   <Tooltip title = 'Accept order'>
                   <IconButton color = 'success' onClick = {() => handleAccept(order)}>
-                   <DoneIcon />
+                   <DoneIcon /> 
                   </IconButton>
                   </Tooltip>
                   <Tooltip title = 'Reject order'>
@@ -624,7 +624,7 @@ export default function Admin() {
                       <DeleteIcon />
                   </IconButton>
                   </Tooltip>
-                </TableCell>
+                </TableCell> */}
               </TableRow>
             ))} 
 

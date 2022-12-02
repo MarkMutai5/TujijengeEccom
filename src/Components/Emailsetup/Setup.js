@@ -1,10 +1,11 @@
 import { Box, TextField, Button } from '@material-ui/core'
-import { collection, onSnapshot } from 'firebase/firestore'
 import React, { useRef, useEffect, useState } from 'react'
 import toast from 'react-hot-toast'
 import { auth, database } from '../config/firebaseConfig'
 
 const Setup = ( {uid}) => {
+
+  console.log('rendered')
 
   const reviewRef = useRef()
 

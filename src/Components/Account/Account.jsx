@@ -1,28 +1,4 @@
-// import React, {useEffect, useState} from 'react'
-// import { auth, database } from '../config/firebaseConfig'
-
-// const Account = ({uid}) => {
-
-
-
-//   return (
-//     <div>
-//         {orders.filter(order => order.UserId === uid).map(filteredOrder => (
-//           <>
-//             {filteredOrder.PhoneNumber}
-//             <br />
-//             {filteredOrder.Address}
-//             <br />
-//           </>
-//         ))}
-//     </div>
-
-
-//   )
-// }
-
-// export default Account
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useRef} from 'react'
 import { styled, createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
 import MuiDrawer from '@mui/material/Drawer';
@@ -45,7 +21,7 @@ import ReceiptIcon from '@mui/icons-material/Receipt';
 import { Button, Card, Paper, Table, TableBody, TableCell, TableContainer, TableHead, TableRow, Tooltip } from '@material-ui/core';
 import { collection, onSnapshot } from 'firebase/firestore';
 import Receipts from '../Receipts/Receipts';
-import Setup from '../Emailsetup/Setup';
+import Setup from '../Emailsetup/Setup'
 
 const drawerWidth = 240;
 
@@ -123,6 +99,7 @@ export default function Account({uid }) {
   const [showReviews, setShowReviews] = useState(false)
 
   const [viewReceipts, setviewReceipts] = useState(false)
+  
   const [reviewform, setreviewForm] = useState(false)
 
   const [users, setUsers] = useState([])
@@ -208,6 +185,29 @@ export default function Account({uid }) {
       loading: 'Logging out...',
       success: 'User logged out',
       error: err => err.message,
+    })
+  }
+
+  const reviewRef = useRef()
+
+  const date = new Date()
+  let day = date.getDate()
+  let month = date.getMonth()
+  let year = date.getFullYear()
+
+  let currentDate = `${day}-${month}-${year}` 
+  const handleSend = () => {
+    auth.onAuthStateChanged(user => {
+      if(user){
+        database.collection('Reviews').add({
+          UserId: uid,
+          Review: reviewRef.current.value,
+          DateUploaded: currentDate 
+        }).then(() => {
+          
+          toast.success('Your review has been successfuly added')
+        })
+      }
     })
   }
 
@@ -300,7 +300,7 @@ export default function Account({uid }) {
                   <StyledTableCell>Order ID</StyledTableCell>
                   <StyledTableCell>Amount</StyledTableCell>
                   <StyledTableCell>Address</StyledTableCell>
-                  <StyledTableCell>Status</StyledTableCell>
+                  {/* <StyledTableCell>Status</StyledTableCell> */}
                   <StyledTableCell>Actions</StyledTableCell>
                 </TableRow>
               </TableHead>
@@ -314,7 +314,7 @@ export default function Account({uid }) {
                     </TableCell>
                     <TableCell >KSH: {filteredOrders.Amount}</TableCell>
                     <TableCell >{filteredOrders.Address}</TableCell>
-                    <TableCell >{filteredOrders.Status}</TableCell>
+                    {/* <TableCell >{filteredOrders.Status}</TableCell> */}
                     <TableCell >
                     <Tooltip title = 'View Receipt'>
                       <IconButton onClick = { () => handleReceipts(filteredOrders)}>
@@ -391,8 +391,13 @@ export default function Account({uid }) {
               <Button variant = 'outlined' sx = {{margin: '1rem'}} rows = {4} onClick = {handleShowreview}>ADD REVIEW</Button>
               <Box sx = {{m:2}}>
                   {reviewform && <>
-                  <Setup uid = {uid}/>
-                </>}
+                    {/* <Setup uid = {uid}/> */}
+                   <Box component='form'>
+                    <TextField label = 'Review' variant='outlined' multiline inputRef={reviewRef}/>
+                    <Button onClick = {handleSend}>Send</Button>
+                  </Box>
+                  </>
+                }
               </Box>
              
               </Box>

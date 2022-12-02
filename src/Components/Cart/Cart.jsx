@@ -163,7 +163,8 @@ function Cart( {currentUser, uid} ) {
       { loading && ( <Spinner />)}
       { cartProducts.length > 0 ? (
         <>
-        <TableContainer component = {Paper} style = {{marginTop: '1rem', marginLeft: '2rem', width: '80%'}}>
+        <Box sx= {{display: 'flex', justifyContent: 'space-between'}}>
+        <TableContainer component = {Paper} style = {{marginTop: '1rem', marginLeft: '2rem', width: '65%', height: '60%'}}>
         <Table sx = {{minWidth: 450 }} aria-label="simple table">
           <TableHead  sx= {{backgroundColor: theme.palette.info.dark}}>
             <TableRow>
@@ -189,8 +190,8 @@ function Cart( {currentUser, uid} ) {
               </TableCell>
               <TableCell >
                 <Tooltip title = 'Remove item'>
-                <IconButton color = 'error' onClick={() => handleDelete(cartProduct)}>
-                    <DeleteIcon/>
+                <IconButton  onClick={() => handleDelete(cartProduct)}>
+                    <DeleteIcon color = 'error'/>
                 </IconButton>
                 </Tooltip>
               </TableCell>
@@ -214,6 +215,7 @@ function Cart( {currentUser, uid} ) {
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            border: 2,
           }}
         >
           <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
@@ -275,13 +277,13 @@ function Cart( {currentUser, uid} ) {
             <Button
               type="submit"
               fullWidth
-              variant="contained"
-              sx={{ mt: 3, mb: 2, width: '40%'}}
+              variant="outlined"
+              sx={{ mt: 3, mb: 2, width: '50%', borderColor: 'black'}}
             >
              PAY ON DELIVERY
             
             </Button>
-            <Box sx= {{width: '50%', marginTop: '0.4rem'}}>
+            <Box sx= {{width: '50%', marginTop: '1.7rem'}}>
             <StripeCheckout
               token={onToken}
               name = 'Tujijenge'
@@ -297,9 +299,7 @@ function Cart( {currentUser, uid} ) {
         </Box>
       </Container>
     </ThemeProvider>
- 
-
-    
+    </Box>
 
       </>
       ) : (
@@ -308,7 +308,7 @@ function Cart( {currentUser, uid} ) {
         </>
         
       )}
-    
+      
     </>
   )
 }
