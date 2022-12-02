@@ -136,7 +136,7 @@ export default function Account({uid }) {
     })
   }
 
-  console.log(users)
+  //console.log(users)
 
   const handleReviews = () => {
     setShowReviews(true)
@@ -170,6 +170,7 @@ export default function Account({uid }) {
   }
 
   const handleShowreview = () => {
+    console.log('clicked')
     setreviewForm(true)
     setviewReceipts(false)
     setShowReviews(false)
@@ -196,7 +197,9 @@ export default function Account({uid }) {
   let year = date.getFullYear()
 
   let currentDate = `${day}-${month}-${year}` 
+
   const handleSend = () => {
+    console.log('clicked')
     auth.onAuthStateChanged(user => {
       if(user){
         database.collection('Reviews').add({
